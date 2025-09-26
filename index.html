@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T.E.C.H Building Future - Edilizia e Manutenzioni dal 2010</title>
+    <meta name="description" content="Specialisti in edilizia, cappotti termici, imbiancature e manutenzioni. Dal 2010 trasformiamo l'imbiancatura in arte. Servizio professionale in Milano e Provincia.">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --accent-color: #4facfe;
+            --dark-blue: #1a365d;
+            --text-color: #2d3748;
+            --light-gray: #f7fafc;
+            --border-color: rgba(102, 126, 234, 0.2);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* HEADER & NAVIGATION */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark-blue);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: none;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* HAMBURGER MENU */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark-blue);
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* MOBILE MENU */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            transition: right 0.4s ease;
+            padding-top: 80px;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            padding: 2rem;
+        }
+
+        .mobile-menu li {
+            margin-bottom: 1.5rem;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: block;
+            padding: 1rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            background: var(--gradient);
+            color: white;
+            transform: translateX(10px);
+        }
+
+        /* SECTIONS */
+        .section {
+            padding: 4rem 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 1rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            text-align: center;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            background: var(--gradient);
+            color: white;
+            padding: 8rem 1.5rem 6rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 70px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="heroPattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23heroPattern)"/></svg>');
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-tagline {
+            font-size: 1.3rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .btn-primary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: white;
+            color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        /* CHI SIAMO SECTION */
+        .chi-siamo {
+            background: var(--light-gray);
+        }
+
+        .about-grid {
+            display: grid;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-content h3 {
+            font-size: 1.8rem;
+            color: var(--dark-blue);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        .highlight {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--border-color);
+            transition: transform 0.3s ease;
+        }
+
+        .stat:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* SERVIZI SECTION */
+        .servizi-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .servizio-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .servizio-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient);
+        }
+
+        .servizio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.2);
+        }
+
+        .servizio-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .servizio-card h3 {
+            font-size: 1.3rem;
+            color: var(--dark-blue);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .servizio-card p {
+            color: var(--text-color);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .servizio-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .servizio-features li {
+            padding: 0.3rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        .servizio-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* CTA CALCOLATORE */
+        .cta-calcolatore {
+            background: var(--gradient);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-calcolatore::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="ctaPattern" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="7.5" cy="7.5" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23ctaPattern)"/></svg>');
+            z-index: 0;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* CONTATTI RAPIDI */
+        .contatti-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .contatto-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--border-color);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .contatto-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .contatto-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 1rem;
+        }
+
+        .contatto-card h4 {
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .contatto-card p {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .contatto-card a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: var(--dark-blue);
+            color: white;
+            padding: 3rem 1.5rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            gap: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: var(--accent-color);
+        }
+
+        .footer-section p,
+        .footer-section li {
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 2rem;
+            padding-top: 1rem;
+            text-align: center;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* RESPONSIVITÀ DESKTOP */
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+
+            .hamburger {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: none;
+            }
+
+            .cta-buttons {
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stats {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .servizi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .hero h1 {
+                font-size: 4rem;
+            }
+
+            .section-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .servizi-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* ANIMAZIONI */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* FLOATING CONTACT BUTTON */
+        .floating-contact {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+
+        .floating-btn {
+            background: var(--gradient);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .floating-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.6);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4); }
+            50% { box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6), 0 0 0 10px rgba(102, 126, 234, 0.1); }
+            100% { box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4); }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header" id="header">
+        <nav class="nav">
+            <a href="#home" class="logo">T.E.C.H Building Future</a>
+            
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="calcolatore.html">Calcolatore</a></li>
+                <li><a href="#servizi">Servizi</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="#contatti">Contatti</a></li>
+            </ul>
+
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+
+        <!-- MOBILE MENU -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="#home">🏠 Home</a></li>
+                <li><a href="calcolatore.html">🧮 Calcolatore</a></li>
+                <li><a href="#servizi">🔧 Servizi</a></li>
+                <li><a href="gallery.html">📸 Gallery</a></li>
+                <li><a href="#contatti">📞 Contatti</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>T.E.C.H Building Future</h1>
+            <p class="hero-tagline">Quando l'imbiancatura diventa arte</p>
+            <p class="hero-description">
+                Dal 2010 trasformiamo spazi ordinari in opere straordinarie, 
+                unendo l'esperienza artigianale alle più moderne tecnologie edilizie. 
+                Serviamo Milano e Provincia con passione e professionalità.
+            </p>
+            <div class="cta-buttons">
+                <a href="calcolatore.html" class="btn btn-primary">🧮 Calcola Preventivo</a>
+                <a href="#contatti" class="btn btn-primary">📞 Chiama Ora</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CHI SIAMO SECTION -->
+    <section id="chi-siamo" class="section chi-siamo">
+        <h2 class="section-title">Chi Siamo</h2>
+        <p class="section-subtitle">
+            Un'azienda giovane e innovativa con oltre 15 anni di esperienza nel settore edilizio
+        </p>
+
+        <div class="about-grid">
+            <div class="about-content">
+                <h3>La Nostra Storia</h3>
+                <p>
+                    <span class="highlight">T.E.C.H Building Future Srl</span> nasce nel 2010 
+                    dall'esperienza tramandata da generazioni nel settore edilizio. 
+                    Siamo specializzati nella trasformazione dell'imbiancatura in una vera forma d'arte.
+                </p>
+                <p>
+                    Ci distinguiamo per la realizzazione di <strong>cappotti termici</strong>, 
+                    <strong>decorazioni artistiche</strong> come stucco veneziano e spatolati, 
+                    e <strong>ristrutturazioni complete</strong> chiavi in mano.
+                </p>
+                <p>
+                    La nostra missione è fornire soluzioni innovative e sostenibili, 
+                    utilizzando le migliori tecnologie per migliorare la qualità della vita 
+                    e il benessere delle persone.
+                </p>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Anni Esperienza</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Progetti Completati</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Clienti Soddisfatti</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">2010</div>
+                    <div class="stat-label">Anno Fondazione</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVIZI SECTION -->
+    <section id="servizi" class="section">
+        <h2 class="section-title">Cosa Facciamo</h2>
+        <p class="section-subtitle">
+            Soluzioni complete per ogni esigenza edile, dalla piccola manutenzione al progetto completo
+        </p>
+
+        <div class="servizi-grid">
+            <div class="servizio-card fade-in">
+                <span class="servizio-icon">🎨</span>
+                <h3>Imbiancature & Decorazioni</h3>
+                <p>Imbiancature professionali e decorazioni artistiche per trasformare i tuoi spazi</p>
+                <ul class="servizio-features">
+                    <li>Pitture ecologiche e antimuffa</li>
+                    <li>Stucco veneziano e spatolati</li>
+                    <li>Finto mare e effetti speciali</li>
+                    <li>Consulenza colori personalizzata</li>
+                </ul>
+                <a href="calcolatore.html" class="btn btn-secondary">Calcola Preventivo</a>
+            </div>
+
+            <div class="servizio-card fade-in">
+                <span class="servizio-icon">🏠</span>
+                <h3>Cappotti Termici</h3>
+                <p>Isolamento termico professionale per massima efficienza energetica</p>
+                <ul class="servizio-features">
+                    <li>Polistirene e materiali isolanti</li>
+                    <li>Detrazioni fiscali disponibili</li>
+                    <li>Certificazione energetica</li>
+                    <li>Riduzione consumi fino al 70%</li>
+                </ul>
+                <a href="calcolatore.html" class="btn btn-secondary">Calcola Preventivo</a>
+            </div>
+
+            <div class="servizio-card fade-in">
+                <span class="servizio-icon">🔧</span>
+                <h3>Cartongesso & Controsoffitti</h3>
+                <p>Pareti divisorie e controsoffitti con finiture impeccabili</p>
+                <ul class="servizio-features">
+                    <li>Pareti divisorie e nicchie</li>
+                    <li>Controsoffitti decorativi</li>
+                    <li>Isolamento acustico integrato</li>
+                    <li>Finiture personalizzate</li>
+                </ul>
+                <a href="calcolatore.html" class="btn btn-secondary">Calcola Preventivo</a>
+            </div>
+
+            <div class="servizio-card fade-in">
+                <span class="servizio-icon">🔄</span>
+                <h3>Ristrutturazioni Complete</h3>
+                <p>Progetti chiavi in mano dalla progettazione alla realizzazione</p>
+                <ul class="servizio-features">
+                    <li>Ristrutturazioni bagni e cucine</li>
+                    <li>Coordinamento cantiere</li>
+                    <li>Progettazione e design</li>
+                    <li>Garanzia totale sull'opera</li>
+                </ul>
+                <a href="calcolatore.html" class="btn btn-secondary">Calcola Preventivo</a>
+            </div>
+
+            <div class="servizio-card fade-in">
+                <span class="servizio-icon">⚡</span>
+                <h3>Servizi Tecnici</h3>
+                <p>Elettrico, idraulico e manutenzioni specializzate</p>
+                <ul class="servizio-features">
+                    <li>Piccoli interventi elettrici</li>
+                    <li>Riparazioni idrauliche</li>
+                    <li>Tapparelle e avvolgibili</li>
+                    <li>Domotica e automazione</li>
+                </ul>
+                <a href="#contatti" class="btn btn-secondary">Richiedi Intervento</a>
+            </div>
+
+            <div class="servizio-card fade-in">
+                <span class="servizio-icon">🧹</span>
+                <h3>Pulizie & Manutenzioni</h3>
+                <p>Servizi di pulizia e manutenzione per privati e condomini</p>
+                <ul class="servizio-features">
+                    <li>Pulizie domestiche e uffici</li>
+                    <li>Manutenzioni condominiali</li>
+                    <li>Lavaggio con idropulitrice</li>
+                    <li>Giardinaggio e verde</li>
+                </ul>
+                <a href="#contatti" class="btn btn-secondary">Prenota Servizio</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA CALCOLATORE -->
+    <section class="section cta-calcolatore">
+        <div class="cta-content">
+            <h2 class="section-title" style="color: white;">Ottieni un Preventivo Istantaneo</h2>
+            <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">
+                Il nostro calcolatore online ti permette di ottenere una stima precisa 
+                per il tuo progetto in pochi click. Gratuito e senza impegno.
+            </p>
+            <a href="calcolatore.html" class="btn btn-primary" style="font-size: 1.2rem; padding: 1.2rem 2.5rem;">
+                🧮 Prova il Calcolatore Gratuito
+            </a>
+        </div>
+    </section>
+
+    <!-- CONTATTI RAPIDI -->
+    <section id="contatti" class="section">
+        <h2 class="section-title">Contatti Rapidi</h2>
+        <p class="section-subtitle">
+            Siamo sempre disponibili per consulenze gratuite e preventivi personalizzati
+        </p>
+
+        <div class="contatti-grid">
+            <div class="contatto-card fade-in">
+                <div class="contatto-icon">📞</div>
+                <h4>Telefono</h4>
+                <p>
+                    <a href="tel:+393408685801">+39 340 868 5801</a><br>
+                    <a href="tel:+393925968739">+39 392 596 8739</a><br>
+                    <small>Lun-Ven 8:00-18:00 | Sab 8:00-12:00</small>
+                </p>
+            </div>
+
+            <div class="contatto-card fade-in">
+                <div class="contatto-icon">💬</div>
+                <h4>WhatsApp</h4>
+                <p>
+                    <a href="https://wa.me/393408685801">+39 340 868 5801</a><br>
+                    <small>Risposta rapida garantita<br>Foto e documenti via chat</small>
+                </p>
+            </div>
+
+            <div class="contatto-card fade-in">
+                <div class="contatto-icon">📧</div>
+                <h4>Email</h4>
+                <p>
+                    <a href="mailto:info@techbuildingfuture.it">info@techbuildingfuture.it</a><br>
+                    <small>Risposta entro 24h<br>Preventivi via email</small>
+                </p>
+            </div>
+
+            <div class="contatto-card fade-in">
+                <div class="contatto-icon">📍</div>
+                <h4>Zona di Intervento</h4>
+                <p>
+                    Milano e Provincia<br>
+                    <small>Sopralluoghi gratuiti<br>Senza impegno</small>
+                </p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="contatti.html" class="btn btn-secondary" style="margin-right: 1rem;">
+                📋 Modulo Contatti Completo
+            </a>
+            <a href="tel:+393408685801" class="btn btn-primary">
+                📞 Chiama Ora per Emergenze
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>T.E.C.H Building Future S.r.l</h4>
+                <p><strong>Sede Legale e Operativa:</strong></p>
+                <p>Via Luigi Borghi, 8</p>
+                <p>21013 Gallarate (VA)</p>
+                <p><strong>P.IVA:</strong> 03960290124</p>
+                <p><strong>Codice SDI:</strong> USAL8PV</p>
+                <p><strong>Fondata:</strong> 2010</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contatti</h4>
+                <ul>
+                    <li>📞 <a href="tel:+393408685801">+39 340 868 5801</a></li>
+                    <li>📞 <a href="tel:+393925968739">+39 392 596 8739</a></li>
+                    <li>📧 <a href="mailto:info@techbuildingfuture.it">info@techbuildingfuture.it</a></li>
+                    <li>📨 <a href="mailto:postmaster@pec.techbuildingfuturesrl.it">PEC Aziendale</a></li>
+                    <li>💬 <a href="https://wa.me/393408685801">WhatsApp</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Orari di Lavoro</h4>
+                <ul>
+                    <li><strong>Lunedì - Venerdì:</strong> 8:00 - 18:00</li>
+                    <li><strong>Sabato:</strong> 8:00 - 12:00</li>
+                    <li><strong>Domenica:</strong> Solo emergenze</li>
+                    <li><strong>Sopralluoghi:</strong> Su appuntamento</li>
+                    <li><strong>Emergenze 24/7:</strong> Disponibili</li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Servizi Principali</h4>
+                <ul>
+                    <li><a href="calcolatore.html">🎨 Imbiancature</a></li>
+                    <li><a href="calcolatore.html">🏠 Cappotti Termici</a></li>
+                    <li><a href="calcolatore.html">✨ Decorazioni Artistiche</a></li>
+                    <li><a href="calcolatore.html">🔧 Cartongesso</a></li>
+                    <li><a href="calcolatore.html">🔄 Ristrutturazioni</a></li>
+                    <li><a href="#contatti">⚡ Servizi Tecnici</a></li>
+                    <li><a href="#contatti">🧹 Pulizie & Manutenzioni</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="social-links">
+            <a href="tel:+393408685801" class="social-link" title="Chiamaci">📞</a>
+            <a href="https://wa.me/393408685801" class="social-link" title="WhatsApp">💬</a>
+            <a href="mailto:info@techbuildingfuture.it" class="social-link" title="Email">📧</a>
+            <a href="calcolatore.html" class="social-link" title="Calcolatore">🧮</a>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 T.E.C.H Building Future S.r.l - Tutti i diritti riservati</p>
+            <p>Dal 2010 • Edilizia • Manutenzioni • Milano e Provincia</p>
+        </div>
+    </footer>
+
+    <!-- FLOATING CONTACT BUTTON -->
+    <div class="floating-contact">
+        <a href="tel:+393408685801" class="floating-btn" title="Chiamata diretta">📞</a>
+    </div>
+
+    <script>
+        // =============================================
+        // MENU HAMBURGER E NAVIGAZIONE MOBILE
+        // =============================================
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const header = document.getElementById('header');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+        });
+
+        // Chiudi menu quando si clicca su un link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Chiudi menu quando si clicca fuori
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // =============================================
+        // HEADER SCROLL EFFECT
+        // =============================================
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // =============================================
+        // SMOOTH SCROLLING
+        // =============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerHeight = header.offsetHeight;
+                    const targetPosition = target.offsetTop - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // =============================================
+        // ANIMAZIONI FADE-IN AL SCROLL
+        // =============================================
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Osserva tutti gli elementi con fade-in
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Animazione contatori statistiche
+            animateStats();
+        });
+
+        // =============================================
+        // ANIMAZIONE CONTATORI STATISTICHE
+        // =============================================
+        function animateStats() {
+            const stats = document.querySelectorAll('.stat-number');
+            
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const statElement = entry.target;
+                        const finalValue = statElement.textContent;
+                        let currentValue = 0;
+                        
+                        // Estrai il numero
+                        const numericValue = parseInt(finalValue.replace(/\D/g, ''));
+                        
+                        if (numericValue) {
+                            const increment = numericValue / 50;
+                            const timer = setInterval(() => {
+                                currentValue += increment;
+                                if (currentValue >= numericValue) {
+                                    statElement.textContent = finalValue;
+                                    clearInterval(timer);
+                                } else {
+                                    const suffix = finalValue.includes('+') ? '+' : 
+                                                 finalValue.includes('%') ? '%' : '';
+                                    statElement.textContent = Math.floor(currentValue) + suffix;
+                                }
+                            }, 30);
+                        }
+                        
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            });
+
+            stats.forEach(stat => {
+                statsObserver.observe(stat);
+            });
+        }
+
+        // =============================================
+        // EFFETTI HOVER CARDS
+        // =============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hover effetti per service cards
+            document.querySelectorAll('.servizio-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-15px) scale(1.02)';
+                    this.style.boxShadow = '0 25px 60px rgba(102, 126, 234, 0.25)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                    this.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+                });
+            });
+
+            // Hover effetti per contact cards
+            document.querySelectorAll('.contatto-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                    this.style.boxShadow = '0 15px 40px rgba(102, 126, 234, 0.2)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                    this.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+                });
+            });
+        });
+
+        // =============================================
+        // LINK TELEFONO WHATSAPP
+        // =============================================
+        function callPhone() {
+            window.location.href = 'tel:+393408685801';
+        }
+
+        function openWhatsApp() {
+            window.open('https://wa.me/393408685801?text=Ciao! Vorrei informazioni sui vostri servizi.', '_blank');
+        }
+
+        // =============================================
+        // PERFORMANCE OTTIMIZZATA
+        // =============================================
+        
+        // Preload delle pagine importanti
+        const preloadPages = ['calcolatore.html', 'contatti.html'];
+        preloadPages.forEach(page => {
+            const link = document.createElement('link');
+            link.rel = 'prefetch';
+            link.href = page;
+            document.head.appendChild(link);
+        });
+
+        // Lazy loading per immagini future
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+
+        // =============================================
+        // GESTIONE ERRORI COLLEGAMENTI
+        // =============================================
+        document.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                const href = e.target.getAttribute('href');
+                
+                // Gestisci link telefono
+                if (href && href.startsWith('tel:')) {
+                    // Analytics o tracking se necessario
+                    console.log('Chiamata telefonica:', href);
+                }
+                
+                // Gestisci link email
+                if (href && href.startsWith('mailto:')) {
+                    console.log('Email:', href);
+                }
+                
+                // Gestisci link WhatsApp
+                if (href && href.includes('wa.me')) {
+                    console.log('WhatsApp:', href);
+                }
+            }
+        });
+
+        // =============================================
+        // ACCESSIBILITY IMPROVEMENTS
+        // =============================================
+        
+        // Focus management per menu mobile
+        hamburger.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                hamburger.click();
+            }
+        });
+
+        // Escape key per chiudere menu
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                hamburger.focus();
+            }
+        });
+
+        // =============================================
+        // INIT AL CARICAMENTO PAGINA
+        // =============================================
+        window.addEventListener('load', () => {
+            // Nasconde loader se presente
+            const loader = document.querySelector('.loader');
+            if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(() => loader.remove(), 300);
+            }
+
+            // Avvia animazioni
+            document.body.classList.add('loaded');
+        });
+
+        // Service Worker per PWA (opzionale per futuro)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => console.log('SW registered'))
+                    .catch(error => console.log('SW registration failed'));
+            });
+        }
+    </script>
+</body>
+</html>
