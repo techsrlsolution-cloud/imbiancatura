@@ -255,7 +255,9 @@
             border-radius: 20px;
             box-shadow: var(--shadow);
             border: 2px solid var(--border-color);
-            overflow: hidden;
+            overflow: visible;
+            display: flex;
+            flex-direction: column;
         }
 
         .section-header {
@@ -285,16 +287,20 @@
 
         .section-content {
             padding: 2rem;
+            flex: 1;
+            min-height: fit-content;
         }
 
-        /* FORM STYLES */
+        /* FORM STYLES - CORREZIONE LAYOUT */
         .form-grid {
             display: grid;
             gap: 1.5rem;
+            grid-template-columns: 1fr;
         }
 
         .form-group {
             position: relative;
+            width: 100%;
         }
 
         .form-group label {
@@ -363,6 +369,7 @@
         .contact-info-grid {
             display: grid;
             gap: 1.5rem;
+            grid-template-columns: 1fr;
         }
 
         .contact-card {
@@ -428,7 +435,7 @@
         }
 
         .map-container {
-            height: 400px;
+            height: 300px;
             position: relative;
         }
 
@@ -446,33 +453,35 @@
 
         .map-overlay {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 15px;
+            left: 15px;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            padding: 1rem 1.5rem;
-            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
             box-shadow: var(--shadow);
-            max-width: 300px;
+            max-width: 250px;
         }
 
         .map-overlay h4 {
             color: var(--dark-blue);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
             font-weight: 600;
+            font-size: 0.9rem;
         }
 
         .map-overlay p {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: var(--text-color);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
+            line-height: 1.3;
         }
 
         .map-overlay a {
             color: var(--primary-color);
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
 
         /* EMERGENCY SECTION */
@@ -676,7 +685,7 @@
             100% { box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4); }
         }
 
-        /* RESPONSIVE */
+        /* RESPONSIVE - CORREZIONE FINALE */
         @media (min-width: 768px) {
             .nav-links {
                 display: flex;
@@ -696,10 +705,17 @@
 
             .contact-grid {
                 grid-template-columns: 1fr 1fr;
+                gap: 3rem;
             }
 
+            /* CORREZIONE FORM GRID - TABLET */
             .form-grid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .form-group.full-width {
+                grid-column: 1 / -1;
             }
 
             .contact-info-grid {
@@ -707,7 +723,7 @@
             }
 
             .map-container {
-                height: 500px;
+                height: 350px;
             }
         }
 
@@ -716,13 +732,139 @@
                 grid-template-columns: repeat(3, 1fr);
             }
 
+            /* FORM GRID DESKTOP - LAYOUT MIGLIORATO */
+            .contact-grid {
+                grid-template-columns: 1.2fr 0.8fr;
+                gap: 3rem;
+                align-items: start;
+            }
+
             .form-grid {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
             }
 
             .form-group.full-width {
                 grid-column: 1 / -1;
             }
+
+            .section-content {
+                padding: 2.5rem;
+            }
+
+            /* ASSICURA CHE TUTTI GLI ELEMENTI SIANO VISIBILI */
+            .contact-section {
+                min-height: auto;
+                height: auto;
+                max-height: none;
+                overflow: visible;
+            }
+
+            /* FORM SPECIFICO - RIMUOVI LIMITAZIONI ALTEZZA */
+            .contact-section:first-child {
+                height: auto;
+                min-height: fit-content;
+            }
+
+            /* MIGLIORAMENTO CONTACT INFO CARDS */
+            .contact-info-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.2rem;
+            }
+
+            .contact-card {
+                padding: 1.2rem;
+                border-radius: 12px;
+            }
+
+            .contact-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+
+            .contact-details h4 {
+                font-size: 0.95rem;
+                margin-bottom: 0.3rem;
+            }
+
+            .contact-details p {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* EXTRA LARGE SCREENS - LAYOUT OTTIMIZZATO */
+        @media (min-width: 1200px) {
+            .main-content {
+                max-width: 1400px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1.3fr 0.7fr;
+                gap: 4rem;
+            }
+
+            .form-grid {
+                gap: 2.5rem;
+            }
+
+            .section-content {
+                padding: 3rem;
+            }
+
+            /* CONTACT INFO OTTIMIZZATI PER SCHERMI GRANDI */
+            .contact-info-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .contact-card {
+                padding: 1rem;
+                border-radius: 10px;
+            }
+
+            .contact-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+
+            .contact-details h4 {
+                font-size: 0.9rem;
+                margin-bottom: 0.25rem;
+            }
+
+            .contact-details p {
+                font-size: 0.8rem;
+                line-height: 1.4;
+            }
+
+            .contact-details small {
+                font-size: 0.75rem;
+            }
+        }
+
+        /* CORREZIONE ALTEZZA SEZIONI */
+        .contact-section {
+            display: flex;
+            flex-direction: column;
+            height: auto;
+            min-height: fit-content;
+        }
+
+        .section-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* MIGLIORAMENTO VISIBILITA' FORM */
+        .form-group {
+            margin-bottom: 0;
+        }
+
+        .form-grid {
+            width: 100%;
         }
 
         /* ANIMATIONS */
@@ -892,13 +1034,6 @@
 
                             <div class="form-group full-width">
                                 <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-                                    <input type="checkbox" name="privacy" required style="width: auto; margin: 0;">
-                                    <span>Accetto il trattamento dei dati personali secondo la normativa Privacy *</span>
-                                </label>
-                            </div>
-
-                            <div class="form-group full-width">
-                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
                                     <input type="checkbox" name="newsletter" style="width: auto; margin: 0;">
                                     <span>Desidero ricevere informazioni su offerte e novità</span>
                                 </label>
@@ -1037,7 +1172,6 @@
                 <h2>📍 Dove Siamo</h2>
             </div>
             <div class="map-container">
-                <!-- Google Maps Embed -->
                 <iframe 
                     class="map-iframe"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2798.1234567890123!2d8.7834567890123!3d45.6512345678901!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47868e123456789a%3A0x123456789abcdef0!2sVia%20Luigi%20Borghi%2C%208%2C%2021013%20Gallarate%20VA!5e0!3m2!1sit!2sit!4v1234567890123!5m2!1sit!2sit"
@@ -1047,7 +1181,6 @@
                     title="Sede T.E.C.H Building Future - Via Luigi Borghi, 8, Gallarate">
                 </iframe>
 
-                <!-- Map Overlay Info -->
                 <div class="map-overlay">
                     <h4>🏢 T.E.C.H Building Future</h4>
                     <p><strong>📍 Indirizzo:</strong><br>Via Luigi Borghi, 8<br>21013 Gallarate (VA)</p>
@@ -1076,14 +1209,14 @@
             </div>
         </div>
 
-        <!-- QUICK ACTIONS -->
-        <div class="contact-grid" style="margin-top: 2rem;">
+        
+        <div class="contact-grid" style="margin-top: 1.5rem;">
             <div class="contact-section fade-in">
                 <div class="section-header">
                     <h2>⚡ Azioni Rapide</h2>
                 </div>
-                <div class="section-content">
-                    <div style="display: grid; gap: 1rem;">
+                <div class="section-content" style="padding: 1.5rem;">
+                    <div style="display: grid; gap: 0.75rem;">
                         <a href="calcolatore.html" class="btn btn-primary">
                             🧮 Calcola Preventivo Online
                         </a>
@@ -1104,19 +1237,19 @@
                 <div class="section-header">
                     <h2>❓ Domande Frequenti</h2>
                 </div>
-                <div class="section-content">
+                <div class="section-content" style="padding: 1.5rem;">
                     <div style="text-align: left;">
-                        <h4 style="color: var(--dark-blue); margin-bottom: 0.5rem;">💰 Il sopralluogo è davvero gratuito?</h4>
-                        <p style="margin-bottom: 1rem; font-size: 0.9rem;">Sì, offriamo sopralluoghi gratuiti e senza impegno in tutta Milano e Provincia.</p>
+                        <h4 style="color: var(--dark-blue); margin-bottom: 0.3rem; font-size: 0.9rem;">💰 Il sopralluogo è davvero gratuito?</h4>
+                        <p style="margin-bottom: 0.75rem; font-size: 0.8rem;">Sì, offriamo sopralluoghi gratuiti e senza impegno in tutta Milano e Provincia.</p>
                         
-                        <h4 style="color: var(--dark-blue); margin-bottom: 0.5rem;">⏰ Quanto tempo per avere il preventivo?</h4>
-                        <p style="margin-bottom: 1rem; font-size: 0.9rem;">Entro 24 ore dalla richiesta ti inviamo un preventivo dettagliato.</p>
+                        <h4 style="color: var(--dark-blue); margin-bottom: 0.3rem; font-size: 0.9rem;">⏰ Quanto tempo per avere il preventivo?</h4>
+                        <p style="margin-bottom: 0.75rem; font-size: 0.8rem;">Entro 24 ore dalla richiesta ti inviamo un preventivo dettagliato.</p>
                         
-                        <h4 style="color: var(--dark-blue); margin-bottom: 0.5rem;">🛡️ Che garanzie offrite?</h4>
-                        <p style="margin-bottom: 1rem; font-size: 0.9rem;">Garanzia standard 2 anni, estendibile a 5 anni sui nostri lavori.</p>
+                        <h4 style="color: var(--dark-blue); margin-bottom: 0.3rem; font-size: 0.9rem;">🛡️ Che garanzie offrite?</h4>
+                        <p style="margin-bottom: 0.75rem; font-size: 0.8rem;">Garanzia standard 2 anni, estendibile a 5 anni sui nostri lavori.</p>
                         
-                        <h4 style="color: var(--dark-blue); margin-bottom: 0.5rem;">💳 Accettate pagamenti rateali?</h4>
-                        <p style="font-size: 0.9rem;">Sì, offriamo soluzioni di pagamento flessibili e rateizzazioni personalizzate.</p>
+                        <h4 style="color: var(--dark-blue); margin-bottom: 0.3rem; font-size: 0.9rem;">💳 Accettate pagamenti rateali?</h4>
+                        <p style="font-size: 0.8rem;">Sì, offriamo soluzioni di pagamento flessibili e rateizzazioni personalizzate.</p>
                     </div>
                 </div>
             </div>
@@ -1283,9 +1416,6 @@
             setTimeout(() => {
                 successMessage.classList.remove('show');
             }, 10000);
-
-            // Track form submission
-            trackFormSubmission(data);
         }
 
         function createEmailContent(data) {
@@ -1348,20 +1478,6 @@ Via Luigi Borghi, 8 - 21013 Gallarate (VA)
 P.IVA: 03960290124`;
         }
 
-        function trackFormSubmission(data) {
-            // Analytics tracking
-            console.log('Form submitted:', data);
-            
-            // Google Analytics event (se implementato)
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'form_submit', {
-                    event_category: 'Contact',
-                    event_label: data.servizio || 'general',
-                    value: 1
-                });
-            }
-        }
-
         // =============================================
         // TEXTAREA AUTO-RESIZE
         // =============================================
@@ -1371,63 +1487,6 @@ P.IVA: 03960290124`;
                 this.style.height = 'auto';
                 this.style.height = (this.scrollHeight) + 'px';
             });
-        }
-
-        // =============================================
-        // CHARACTER COUNTER
-        // =============================================
-        function addCharacterCounter() {
-            const maxLength = 1000;
-            const counter = document.createElement('div');
-            counter.style.cssText = `
-                font-size: 0.8rem;
-                color: var(--text-color);
-                text-align: right;
-                margin-top: 0.5rem;
-            `;
-            
-            textarea.parentNode.appendChild(counter);
-            
-            textarea.addEventListener('input', function() {
-                const length = this.value.length;
-                counter.textContent = `${length}/${maxLength} caratteri`;
-                
-                if (length > maxLength * 0.9) {
-                    counter.style.color = 'var(--warning-color)';
-                } else if (length > maxLength * 0.95) {
-                    counter.style.color = 'var(--error-color)';
-                } else {
-                    counter.style.color = 'var(--text-color)';
-                }
-            });
-            
-            // Initial count
-            textarea.dispatchEvent(new Event('input'));
-        }
-
-        // =============================================
-        // MAP INTERACTIONS
-        // =============================================
-        function initMap() {
-            const mapContainer = document.querySelector('.map-container');
-            const mapOverlay = document.querySelector('.map-overlay');
-            
-            // Add click handler for better mobile experience
-            mapContainer.addEventListener('click', () => {
-                const mapIframe = mapContainer.querySelector('.map-iframe');
-                mapIframe.style.pointerEvents = 'auto';
-                
-                // Re-disable after scroll
-                setTimeout(() => {
-                    mapIframe.style.pointerEvents = 'none';
-                }, 5000);
-            });
-
-            // Prevent map scroll on mobile when scrolling page
-            if (window.innerWidth < 768) {
-                const mapIframe = mapContainer.querySelector('.map-iframe');
-                mapIframe.style.pointerEvents = 'none';
-            }
         }
 
         // =============================================
@@ -1475,49 +1534,6 @@ P.IVA: 03960290124`;
         }
 
         // =============================================
-        // ACCESSIBILITY ENHANCEMENTS
-        // =============================================
-        document.addEventListener('keydown', (e) => {
-            // Escape key closes mobile menu
-            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
-                hamburger.classList.remove('active');
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = 'auto';
-                hamburger.focus();
-            }
-            
-            // Enter key on contact cards triggers click
-            if (e.key === 'Enter' && e.target.closest('.contact-card')) {
-                const link = e.target.closest('.contact-card').querySelector('a');
-                if (link) link.click();
-            }
-        });
-
-        // Add keyboard navigation to contact cards
-        document.querySelectorAll('.contact-card').forEach(card => {
-            card.setAttribute('tabindex', '0');
-            card.setAttribute('role', 'button');
-        });
-
-        // =============================================
-        // EMERGENCY CONTACT TRACKING
-        // =============================================
-        document.querySelectorAll('.btn-emergency').forEach(btn => {
-            btn.addEventListener('click', () => {
-                console.log('Emergency contact initiated');
-                
-                // Track emergency calls
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'emergency_contact', {
-                        event_category: 'Emergency',
-                        event_label: btn.textContent.trim(),
-                        value: 1
-                    });
-                }
-            });
-        });
-
-        // =============================================
         // INIT
         // =============================================
         document.addEventListener('DOMContentLoaded', () => {
@@ -1525,14 +1541,6 @@ P.IVA: 03960290124`;
             document.querySelectorAll('.fade-in, .slide-in').forEach(el => {
                 observer.observe(el);
             });
-            
-            // Initialize map
-            initMap();
-            
-            // Add character counter to textarea
-            if (textarea) {
-                addCharacterCounter();
-            }
             
             // Phone number formatting
             const phoneInput = document.getElementById('telefono');
@@ -1548,45 +1556,21 @@ P.IVA: 03960290124`;
                 }
             }
             
-            // Preload other pages
-            const preloadPages = ['calcolatore.html', 'index.html', 'servizi.html'];
-            preloadPages.forEach(page => {
-                const link = document.createElement('link');
-                link.rel = 'prefetch';
-                link.href = page;
-                document.head.appendChild(link);
-            });
-            
-            console.log('📞 Pagina Contatti T.E.C.H Building Future inizializzata');
+            console.log('📞 Pagina Contatti T.E.C.H Building Future corretta e inizializzata');
         });
 
         // =============================================
-        // PERFORMANCE MONITORING
+        // ACCESSIBILITY
         // =============================================
-        window.addEventListener('load', () => {
-            // Measure page load time
-            const loadTime = performance.now();
-            console.log(`Pagina caricata in ${Math.round(loadTime)}ms`);
-            
-            // Track page load
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'page_load_time', {
-                    event_category: 'Performance',
-                    value: Math.round(loadTime)
-                });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                hamburger.focus();
             }
         });
-
-        // =============================================
-        // SERVICE WORKER (PWA READY)
-        // =============================================
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(registration => console.log('SW registered'))
-                    .catch(error => console.log('SW registration failed'));
-            });
-        }
     </script>
 </body>
-</html>
+
+                                   
