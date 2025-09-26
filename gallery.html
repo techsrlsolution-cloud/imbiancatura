@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery Lavori - T.E.C.H Building Future</title>
+    <meta name="description" content="Galleria dei nostri migliori lavori: imbiancature, cappotti termici, decorazioni artistiche, ristrutturazioni. Dal 2010 trasformiamo l'imbiancatura in arte.">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --accent-color: #4facfe;
+            --dark-blue: #1a365d;
+            --text-color: #2d3748;
+            --light-gray: #f7fafc;
+            --border-color: rgba(102, 126, 234, 0.2);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --success-color: #48bb78;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--light-gray);
+            overflow-x: hidden;
+        }
+
+        /* HEADER */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark-blue);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: none;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* HAMBURGER MENU */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark-blue);
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            transition: right 0.4s ease;
+            padding-top: 80px;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            padding: 2rem;
+        }
+
+        .mobile-menu li {
+            margin-bottom: 1.5rem;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: block;
+            padding: 1rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            background: var(--gradient);
+            color: white;
+            transform: translateX(10px);
+        }
+
+        /* BREADCRUMB */
+        .breadcrumb {
+            background: white;
+            padding: 1rem 1.5rem;
+            margin-top: 70px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .breadcrumb-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* PAGE HEADER */
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--border-color);
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* STATS BAR */
+        .stats-bar {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--border-color);
+            margin-bottom: 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        /* GALLERY GRID */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.2);
+            border-color: var(--primary-color);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 250px;
+            background: var(--light-gray);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--border-color);
+        }
+
+        .gallery-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                var(--light-gray) 25%, 
+                transparent 25%, 
+                transparent 75%, 
+                var(--light-gray) 75%),
+                linear-gradient(45deg, 
+                var(--light-gray) 25%, 
+                transparent 25%, 
+                transparent 75%, 
+                var(--light-gray) 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            opacity: 0.3;
+        }
+
+        .gallery-image .placeholder-icon {
+            position: relative;
+            z-index: 1;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(102, 126, 234, 0.9);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-size: 2rem;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-info {
+            padding: 1.5rem;
+        }
+
+        .gallery-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+            margin-bottom: 0.75rem;
+        }
+
+        .gallery-description {
+            font-size: 0.95rem;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .gallery-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            font-weight: 500;
+        }
+
+        /* CTA SECTION */
+        .cta-section {
+            background: var(--gradient);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="ctaPattern" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="7.5" cy="7.5" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23ctaPattern)"/></svg>');
+            z-index: 0;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta-description {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-primary:hover {
+            background: white;
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-color);
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: transparent;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* FLOATING ELEMENTS */
+        .floating-contact {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+
+        .floating-btn {
+            background: var(--success-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .floating-btn:hover {
+            transform: scale(1.1);
+            animation: none;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4); }
+            50% { box-shadow: 0 4px 15px rgba(72, 187, 120, 0.6), 0 0 0 10px rgba(72, 187, 120, 0.1); }
+            100% { box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4); }
+        }
+
+        /* RESPONSIVE */
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+
+            .hamburger {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: none;
+            }
+
+            .page-title {
+                font-size: 3rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cta-buttons {
+                flex-direction: row;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .stats-bar {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* ANIMATIONS */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header" id="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">T.E.C.H Building Future</a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="calcolatore.html">Calcolatore</a></li>
+                <li><a href="servizi.html">Servizi</a></li>
+                <li><a href="gallery.html" class="active">Gallery</a></li>
+                <li><a href="contatti.html">Contatti</a></li>
+            </ul>
+
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="calcolatore.html">🧮 Calcolatore</a></li>
+                <li><a href="servizi.html">🔧 Servizi</a></li>
+                <li><a href="gallery.html">📸 Gallery</a></li>
+                <li><a href="contatti.html">📞 Contatti</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb">
+        <div class="breadcrumb-content">
+            <a href="index.html">Home</a> / Gallery Lavori
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- PAGE HEADER -->
+        <div class="page-header fade-in">
+            <h1 class="page-title">I Nostri Migliori Lavori</h1>
+            <p class="page-subtitle">
+                Una selezione dei progetti più rappresentativi che mostrano la qualità 
+                e l'attenzione ai dettagli che ci contraddistingue dal 2010.
+            </p>
+        </div>
+
+        <!-- STATS BAR -->
+        <div class="stats-bar fade-in">
+            <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Progetti Completati</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">15</div>
+                <div class="stat-label">Anni di Esperienza</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Clienti Soddisfatti</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Assistenza</div>
+            </div>
+        </div>
+
+        <!-- GALLERY GRID - SOLO 6 PROGETTI SELEZIONATI -->
+        <div class="gallery-grid">
+            <!-- IMBIANCATURA LUXURY -->
+            <div class="gallery-item fade-in">
+                <div class="gallery-image">
+                    <span class="placeholder-icon">🎨</span>
+                    <div class="gallery-overlay">
+                        <span>👁️</span>
+                    </div>
+                </div>
+                <div class="gallery-info">
+                    <h3 class="gallery-title">Imbiancatura Villa di Lusso</h3>
+                    <p class="gallery-description">
+                        Progetto di imbiancatura completa per villa di 300mq con pitture ecologiche 
+                        di alta gamma e consulenza colori personalizzata.
+                    </p>
+                    <div class="gallery-meta">
+                        <span>📍 Milano Centro</span>
+                        <span>🗓️ 2024</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CAPPOTTO TERMICO -->
+            <div class="gallery-item fade-in">
+                <div class="gallery-image">
+                    <span class="placeholder-icon">🏠</span>
+                    <div class="gallery-overlay">
+                        <span>👁️</span>
+                    </div>
+                </div>
+                <div class="gallery-info">
+                    <h3 class="gallery-title">Cappotto Termico Condominio</h3>
+                    <p class="gallery-description">
+                        Isolamento termico completo per condominio 4 piani con materiali EPS 
+                        e riduzione consumi energetici del 70%.
+                    </p>
+                    <div class="gallery-meta">
+                        <span>📍 Varese</span>
+                        <span>🗓️ 2023</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STUCCO VENEZIANO -->
+            <div class="gallery-item fade-in">
+                <div class="gallery-image">
+                    <span class="placeholder-icon">✨</span>
+                    <div class="gallery-overlay">
+                        <span>👁️</span>
+                    </div>
+                </div>
+                <div class="gallery-info">
+                    <h3 class="gallery-title">Stucco Veneziano Artistico</h3>
+                    <p class="gallery-description">
+                        Decorazione artistica con stucco veneziano originale e finiture oro 
+                        per soggiorno di rappresentanza.
+                    </p>
+                    <div class="gallery-meta">
+                        <span>📍 Como</span>
+                        <span>🗓️ 2024</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RISTRUTTURAZIONE BAGNO -->
+            <div class="gallery-item fade-in">
+                <div class="gallery-image">
+                    <span class="placeholder-icon">🛁</span>
+                    <div class="gallery-overlay">
+                        <span>👁️</span>
+                    </div>
+                </div>
+                <div class="gallery-info">
+                    <h3 class="gallery-title">Ristrutturazione Bagno Premium</h3>
+                    <p class="gallery-description">
+                        Ristrutturazione completa bagno padronale con doccia walk-in, 
+                        finiture di pregio e domotica integrata.
+                    </p>
+                    <div class="gallery-meta">
+                        <span>📍 Busto Arsizio</span>
+                        <span>🗓️ 2024</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARTONGESSO DESIGN -->
+            <div class="gallery-item fade-in">
+                <div class="gallery-image">
+                    <span class="placeholder-icon">🔧</span>
+                    <div class="gallery-overlay">
+                        <span>👁️</span>
+                    </div>
+                </div>
+                <div class="gallery-info">
+                    <h3 class="gallery-title">Controsoffitto LED Design</h3>
+                    <p class="gallery-description">
+                        Controsoffitto in cartongesso con forme geometriche e illuminazione 
+                        LED integrata per ambiente moderno.
+                    </p>
+                    <div class="gallery-meta">
+                        <span>📍 Gallarate</span>
+                        <span>🗓️ 2023</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROGETTO COMPLETO -->
+            <div class="gallery-item fade-in">
+                <div class="gallery-image">
+                    <span class="placeholder-icon">🏡</span>
+                    <div class="gallery-overlay">
+                        <span>👁️</span>
+                    </div>
+                </div>
+                <div class="gallery-info">
+                    <h3 class="gallery-title">Ristrutturazione Completa</h3>
+                    <p class="gallery-description">
+                        Progetto chiavi in mano per appartamento 120mq: 
+                        imbiancature, pavimenti, bagno e cucina nuovi.
+                    </p>
+                    <div class="gallery-meta">
+                        <span>📍 Saronno</span>
+                        <span>🗓️ 2024</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA SECTION -->
+        <div class="cta-section fade-in">
+            <div class="cta-content">
+                <h2 class="cta-title">Ispirati per il Tuo Prossimo Progetto?</h2>
+                <p class="cta-description">
+                    Ogni lavoro nella nostra gallery è il risultato di anni di esperienza e passione. 
+                    Contattaci per trasformare anche il tuo spazio in un'opera d'arte.
+                </p>
+                <div class="cta-buttons">
+                    <a href="calcolatore.html" class="btn btn-primary">🧮 Calcola il Tuo Preventivo</a>
+                    <a href="contatti.html" class="btn btn-secondary">📞 Richiedi Sopralluogo</a>
+                    <a href="tel:+393408685801" class="btn btn-primary">📱 Chiamata Diretta</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FLOATING CONTACT -->
+    <div class="floating-contact">
+        <a href="https://wa.me/393408685801?text=Ciao! Ho visto la vostra gallery e sono interessato a un progetto simile." class="floating-btn" title="WhatsApp Gallery">💬</a>
+    </div>
+
+    <script>
+        // =============================================
+        // MENU HAMBURGER
+        // =============================================
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const header = document.getElementById('header');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+        });
+
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // =============================================
+        // HEADER SCROLL EFFECT
+        // =============================================
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // =============================================
+        // ANIMATIONS
+        // =============================================
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // =============================================
+        // STATS COUNTER ANIMATION
+        // =============================================
+        function animateStats() {
+            const stats = document.querySelectorAll('.stat-number');
+            
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const statElement = entry.target;
+                        const finalValue = statElement.textContent;
+                        
+                        let numericValue = 0;
+                        if (finalValue.includes('+')) {
+                            numericValue = parseInt(finalValue.replace(/\D/g, ''));
+                        } else if (finalValue.includes('%')) {
+                            numericValue = 100;
+                        } else if (finalValue.includes('/')) {
+                            numericValue = 24;
+                        } else {
+                            numericValue = parseInt(finalValue) || 15;
+                        }
+                        
+                        let currentValue = 0;
+                        const increment = numericValue / 50;
+                        
+                        const timer = setInterval(() => {
+                            currentValue += increment;
+                            if (currentValue >= numericValue) {
+                                statElement.textContent = finalValue;
+                                clearInterval(timer);
+                            } else {
+                                if (finalValue.includes('+')) {
+                                    statElement.textContent = Math.floor(currentValue) + '+';
+                                } else if (finalValue.includes('%')) {
+                                    statElement.textContent = Math.floor(currentValue) + '%';
+                                } else if (finalValue.includes('/')) {
+                                    statElement.textContent = '24/7';
+                                } else {
+                                    statElement.textContent = Math.floor(currentValue);
+                                }
+                            }
+                        }, 30);
+                        
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            });
+
+            stats.forEach(stat => {
+                statsObserver.observe(stat);
+            });
+        }
+
+        // =============================================
+        // GALLERY INTERACTIONS
+        // =============================================
+        function initGalleryInteractions() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            galleryItems.forEach(item => {
+                // Enhance hover effects
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-15px) scale(1.02)';
+                    this.style.boxShadow = '0 25px 60px rgba(102, 126, 234, 0.25)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                    this.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+                });
+
+                // Click to contact
+                item.addEventListener('click', function() {
+                    const title = this.querySelector('.gallery-title').textContent;
+                    const message = `Ciao! Ho visto il progetto "${title}" nella vostra gallery e sono interessato a qualcosa di simile.`;
+                    window.open(`https://wa.me/393408685801?text=${encodeURIComponent(message)}`, '_blank');
+                });
+
+                // Keyboard accessibility
+                item.setAttribute('tabindex', '0');
+                item.setAttribute('role', 'button');
+                item.setAttribute('aria-label', 'Clicca per maggiori informazioni su questo progetto');
+                
+                item.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        item.click();
+                    }
+                });
+            });
+        }
+
+        // =============================================
+        // INIT
+        // =============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize all functionality
+            initGalleryInteractions();
+            animateStats();
+            
+            // Initialize animations
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+            
+            console.log('📸 Gallery T.E.C.H Building Future inizializzata');
+        });
+
+        // =============================================
+        // ACCESSIBILITY
+        // =============================================
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                hamburger.focus();
+            }
+        });
+
+        // =============================================
+        // PERFORMANCE
+        // =============================================
+        
+        // Preload important pages
+        window.addEventListener('load', () => {
+            const preloadPages = ['calcolatore.html', 'contatti.html', 'servizi.html'];
+            preloadPages.forEach(page => {
+                const link = document.createElement('link');
+                link.rel = 'prefetch';
+                link.href = page;
+                document.head.appendChild(link);
+            });
+        });
+    </script>
+</body>
+</html>
