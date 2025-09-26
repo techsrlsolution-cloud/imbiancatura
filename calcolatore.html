@@ -1,0 +1,1924 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolatore Preventivi - T.E.C.H Building Future</title>
+    <meta name="description" content="Calcola online il preventivo per i tuoi lavori edili. Imbiancature, cappotti termici, ristrutturazioni. Stima immediata e gratuita.">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --accent-color: #4facfe;
+            --dark-blue: #1a365d;
+            --text-color: #2d3748;
+            --light-gray: #f7fafc;
+            --border-color: rgba(102, 126, 234, 0.2);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --success-color: #48bb78;
+            --warning-color: #ed8936;
+            --error-color: #f56565;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--light-gray);
+            overflow-x: hidden;
+        }
+
+        /* HEADER */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark-blue);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: none;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        /* HAMBURGER MENU */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark-blue);
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            transition: right 0.4s ease;
+            padding-top: 80px;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            padding: 2rem;
+        }
+
+        .mobile-menu li {
+            margin-bottom: 1.5rem;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: block;
+            padding: 1rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            background: var(--gradient);
+            color: white;
+            transform: translateX(10px);
+        }
+
+        /* BREADCRUMB */
+        .breadcrumb {
+            background: white;
+            padding: 1rem 1.5rem;
+            margin-top: 70px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .breadcrumb-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .calculator-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .calculator-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 1rem;
+        }
+
+        .calculator-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* CALCULATOR CONTAINER */
+        .calculator-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .calculator-steps {
+            display: flex;
+            background: var(--gradient);
+            color: white;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            margin-right: 1rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .step.active {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .step.completed {
+            background: var(--success-color);
+        }
+
+        /* STEP CONTENT */
+        .step-content {
+            padding: 2rem;
+            min-height: 500px;
+            display: none;
+        }
+
+        .step-content.active {
+            display: block;
+        }
+
+        .step-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        /* SERVICE SELECTION */
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .service-option {
+            background: var(--light-gray);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .service-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .service-option.selected {
+            border-color: var(--primary-color);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .service-option .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .service-option h3 {
+            font-size: 1.2rem;
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .service-option p {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+
+        .service-price {
+            background: var(--gradient);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            display: inline-block;
+        }
+
+        /* FORM ELEMENTS */
+        .form-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-suffix {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-color);
+            font-weight: 600;
+            pointer-events: none;
+        }
+
+        /* CHECKBOX GRID */
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .checkbox-item {
+            background: var(--light-gray);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-item:hover {
+            background: rgba(102, 126, 234, 0.05);
+            border-color: var(--primary-color);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin: 0;
+        }
+
+        .checkbox-item.checked {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        /* BUTTONS */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* RESULTS SECTION */
+        .results-container {
+            background: var(--gradient);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .results-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="resultsPattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23resultsPattern)"/></svg>');
+            z-index: 0;
+        }
+
+        .results-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .price-display {
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 1rem 0;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .price-range {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .detail-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .detail-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        /* PROGRESS BAR */
+        .progress-container {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            height: 8px;
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: white;
+            height: 100%;
+            border-radius: 25px;
+            transition: width 0.5s ease;
+            box-shadow: 0 2px 10px rgba(255, 255, 255, 0.3);
+        }
+
+        /* CTA ACTIONS */
+        .cta-actions {
+            display: grid;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .cta-button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-button:hover {
+            background: white;
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        /* RESPONSIVE */
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+
+            .hamburger {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: none;
+            }
+
+            .calculator-title {
+                font-size: 3rem;
+            }
+
+            .form-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .btn-navigation {
+                flex-direction: row;
+            }
+
+            .cta-actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .service-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .form-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* FLOATING ELEMENTS */
+        .floating-help {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            z-index: 998;
+        }
+
+        .help-button {
+            background: var(--warning-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(237, 137, 54, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .help-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(237, 137, 54, 0.6);
+        }
+
+        .floating-contact {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+
+        .contact-button {
+            background: var(--success-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .contact-button:hover {
+            transform: scale(1.1);
+            animation: none;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4); }
+            50% { box-shadow: 0 4px 15px rgba(72, 187, 120, 0.6), 0 0 0 10px rgba(72, 187, 120, 0.1); }
+            100% { box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4); }
+        }
+
+        /* ANIMATIONS */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in {
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+
+        .slide-in.visible {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header" id="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">T.E.C.H Building Future</a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="calcolatore.html" class="active">Calcolatore</a></li>
+                <li><a href="servizi.html">Servizi</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contatti.html">Contatti</a></li>
+            </ul>
+
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="calcolatore.html">🧮 Calcolatore</a></li>
+                <li><a href="servizi.html">🔧 Servizi</a></li>
+                <li><a href="gallery.html">📸 Gallery</a></li>
+                <li><a href="contatti.html">📞 Contatti</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb">
+        <div class="breadcrumb-content">
+            <a href="index.html">Home</a> / Calcolatore Preventivi
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <div class="calculator-header">
+            <h1 class="calculator-title">Calcolatore Preventivi Online</h1>
+            <p class="calculator-subtitle">
+                Ottieni una stima precisa e immediata per il tuo progetto. 
+                Inserisci i dettagli e ricevi un preventivo personalizzato in pochi minuti.
+            </p>
+        </div>
+
+        <div class="calculator-container">
+            <!-- PROGRESS STEPS -->
+            <div class="calculator-steps">
+                <div class="step active" id="step1">
+                    <span>1</span>
+                    <span>Servizio</span>
+                </div>
+                <div class="step" id="step2">
+                    <span>2</span>
+                    <span>Dettagli</span>
+                </div>
+                <div class="step" id="step3">
+                    <span>3</span>
+                    <span>Opzioni</span>
+                </div>
+                <div class="step" id="step4">
+                    <span>4</span>
+                    <span>Risultato</span>
+                </div>
+            </div>
+
+            <!-- STEP 1: SERVICE SELECTION -->
+            <div class="step-content active" id="content1">
+                <h2 class="step-title">Seleziona il Servizio</h2>
+                
+                <div class="service-grid">
+                    <div class="service-option" data-service="imbiancatura" data-base-price="8">
+                        <span class="icon">🎨</span>
+                        <h3>Imbiancatura</h3>
+                        <p>Pitture per interni ed esterni, decorazioni artistiche</p>
+                        <span class="service-price">Da €8/mq</span>
+                    </div>
+
+                    <div class="service-option" data-service="cappotto" data-base-price="45">
+                        <span class="icon">🏠</span>
+                        <h3>Cappotto Termico</h3>
+                        <p>Isolamento termico professionale per risparmio energetico</p>
+                        <span class="service-price">Da €45/mq</span>
+                    </div>
+
+                    <div class="service-option" data-service="decorazioni" data-base-price="35">
+                        <span class="icon">✨</span>
+                        <h3>Decorazioni Artistiche</h3>
+                        <p>Stucco veneziano, spatolati, finto mare</p>
+                        <span class="service-price">Da €35/mq</span>
+                    </div>
+
+                    <div class="service-option" data-service="cartongesso" data-base-price="25">
+                        <span class="icon">🔧</span>
+                        <h3>Cartongesso</h3>
+                        <p>Pareti divisorie e controsoffitti</p>
+                        <span class="service-price">Da €25/mq</span>
+                    </div>
+
+                    <div class="service-option" data-service="ristrutturazione" data-base-price="200">
+                        <span class="icon">🔄</span>
+                        <h3>Ristrutturazione</h3>
+                        <p>Progetti completi chiavi in mano</p>
+                        <span class="service-price">Da €200/mq</span>
+                    </div>
+
+                    <div class="service-option" data-service="manutenzione" data-base-price="45">
+                        <span class="icon">🛠️</span>
+                        <h3>Manutenzione</h3>
+                        <p>Servizi tecnici e riparazioni</p>
+                        <span class="service-price">Da €45/ora</span>
+                    </div>
+                </div>
+
+                <div class="btn-navigation">
+                    <div></div>
+                    <button class="btn btn-primary" onclick="nextStep()" id="nextBtn1" disabled>
+                        Continua →
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 2: PROJECT DETAILS -->
+            <div class="step-content" id="content2">
+                <h2 class="step-title">Dettagli del Progetto</h2>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="area">Superficie (mq)</label>
+                        <div class="input-group">
+                            <input type="number" id="area" min="1" max="10000" required>
+                            <span class="input-suffix">mq</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rooms">Numero Stanze</label>
+                        <select id="rooms">
+                            <option value="1">1 stanza</option>
+                            <option value="2">2 stanze</option>
+                            <option value="3">3 stanze</option>
+                            <option value="4">4 stanze</option>
+                            <option value="5">5+ stanze</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="height">Altezza Soffitti (m)</label>
+                        <div class="input-group">
+                            <input type="number" id="height" min="2" max="10" step="0.1" value="2.7">
+                            <span class="input-suffix">m</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="condition">Condizioni Attuali</label>
+                        <select id="condition">
+                            <option value="ottima">Ottime condizioni</option>
+                            <option value="buona">Buone condizioni</option>
+                            <option value="media">Condizioni medie</option>
+                            <option value="scarsa">Da ristrutturare</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="urgency">Tempistiche</label>
+                        <select id="urgency">
+                            <option value="normale">Normale (2-4 settimane)</option>
+                            <option value="veloce">Veloce (1-2 settimane)</option>
+                            <option value="urgente">Urgente (entro 1 settimana)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Località</label>
+                        <input type="text" id="location" placeholder="Milano, Varese, Como...">
+                    </div>
+                </div>
+
+                <div id="specificFields"></div>
+
+                <div class="btn-navigation">
+                    <button class="btn btn-secondary" onclick="prevStep()">
+                        ← Indietro
+                    </button>
+                    <button class="btn btn-primary" onclick="nextStep()" id="nextBtn2">
+                        Continua →
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 3: ADDITIONAL OPTIONS -->
+            <div class="step-content" id="content3">
+                <h2 class="step-title">Servizi Aggiuntivi</h2>
+                
+                <div class="checkbox-grid">
+                    <div class="checkbox-item" data-cost="3">
+                        <input type="checkbox" id="prep" value="preparazione">
+                        <label for="prep">
+                            <strong>Preparazione Superfici</strong><br>
+                            <small>Stuccatura e carteggiatura (+€3/mq)</small>
+                        </label>
+                    </div>
+
+                    <div class="checkbox-item" data-cost="150">
+                        <input type="checkbox" id="protection" value="protezione">
+                        <label for="protection">
+                            <strong>Protezione Mobili</strong><br>
+                            <small>Copertura e protezione arredamento (+€150)</small>
+                        </label>
+                    </div>
+
+                    <div class="checkbox-item" data-cost="200">
+                        <input type="checkbox" id="cleaning" value="pulizia">
+                        <label for="cleaning">
+                            <strong>Pulizia Finale</strong><br>
+                            <small>Pulizia completa post-lavori (+€200)</small>
+                        </label>
+                    </div>
+
+                    <div class="checkbox-item" data-cost="0">
+                        <input type="checkbox" id="materials" value="materiali">
+                        <label for="materials">
+                            <strong>Materiali Premium</strong><br>
+                            <small>Utilizzo materiali di alta qualità (+20%)</small>
+                        </label>
+                    </div>
+
+                    <div class="checkbox-item" data-cost="0">
+                        <input type="checkbox" id="weekend" value="weekend">
+                        <label for="weekend">
+                            <strong>Lavori Weekend</strong><br>
+                            <small>Disponibilità sabato e domenica (+15%)</small>
+                        </label>
+                    </div>
+
+                    <div class="checkbox-item" data-cost="0">
+                        <input type="checkbox" id="warranty" value="garanzia">
+                        <label for="warranty">
+                            <strong>Garanzia Estesa</strong><br>
+                            <small>Garanzia 5 anni invece di 2 (+10%)</small>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Note Aggiuntive</label>
+                    <textarea id="notes" rows="4" placeholder="Descrivi eventuali richieste particolari, accessi difficili, vincoli condominiali o altre specifiche del progetto..."></textarea>
+                </div>
+
+                <div class="btn-navigation">
+                    <button class="btn btn-secondary" onclick="prevStep()">
+                        ← Indietro
+                    </button>
+                    <button class="btn btn-primary" onclick="calculateEstimate()">
+                        Calcola Preventivo 🧮
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 4: RESULTS -->
+            <div class="step-content" id="content4">
+                <div class="results-container">
+                    <div class="results-content">
+                        <h2 class="step-title" style="color: white;">Il Tuo Preventivo</h2>
+                        
+                        <div class="price-display" id="totalPrice">€ 0</div>
+                        <div class="price-range" id="priceRange">Range: € 0 - € 0</div>
+                        
+                        <div class="progress-container">
+                            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+                        </div>
+
+                        <div class="details-grid">
+                            <div class="detail-item">
+                                <div class="detail-label">Superficie totale</div>
+                                <div class="detail-value" id="totalArea">0 mq</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Costo materiali</div>
+                                <div class="detail-value" id="materialCost">€ 0</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Manodopera</div>
+                                <div class="detail-value" id="laborCost">€ 0</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Servizi extra</div>
+                                <div class="detail-value" id="extraCost">€ 0</div>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(255,255,255,0.2); padding: 1.5rem; border-radius: 10px; margin: 2rem 0;">
+                            <p style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 1rem;">
+                                ⚠️ <strong>Importante:</strong> Questo è un preventivo indicativo basato sui dati inseriti. 
+                                Per una quotazione precisa è necessario un sopralluogo gratuito.
+                            </p>
+                            <p style="font-size: 0.8rem; opacity: 0.8;">
+                                Il preventivo include IVA e può variare in base a condizioni specifiche del cantiere.
+                            </p>
+                        </div>
+
+                        <div class="cta-actions">
+                            <a href="tel:+393408685801" class="cta-button">
+                                📞 Chiama per Conferma
+                            </a>
+                            <a href="contatti.html" class="cta-button">
+                                📋 Richiedi Sopralluogo
+                            </a>
+                            <a href="javascript:void(0)" onclick="sendQuoteByEmail()" class="cta-button">
+                                📧 Invia per Email
+                            </a>
+                            <a href="javascript:void(0)" onclick="downloadPDF()" class="cta-button">
+                                📄 Scarica PDF
+                            </a>
+                        </div>
+
+                        <div style="margin-top: 2rem;">
+                            <button class="btn btn-secondary" onclick="resetCalculator()" style="background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3);">
+                                🔄 Nuovo Preventivo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FLOATING HELP -->
+    <div class="floating-help">
+        <a href="javascript:void(0)" onclick="showHelp()" class="help-button" title="Aiuto">❓</a>
+    </div>
+
+    <!-- FLOATING CONTACT -->
+    <div class="floating-contact">
+        <a href="https://wa.me/393408685801?text=Ciao! Ho calcolato un preventivo sul vostro sito e vorrei maggiori informazioni." class="contact-button" title="WhatsApp">💬</a>
+    </div>
+
+    <script>
+        // =============================================
+        // VARIABILI GLOBALI
+        // =============================================
+        let currentStep = 1;
+        let selectedService = null;
+        let calculationData = {};
+        
+        const serviceRates = {
+            imbiancatura: { base: 8, material: 3, complexity: 1.2 },
+            cappotto: { base: 45, material: 25, complexity: 1.5 },
+            decorazioni: { base: 35, material: 15, complexity: 2.0 },
+            cartongesso: { base: 25, material: 12, complexity: 1.3 },
+            ristrutturazione: { base: 200, material: 100, complexity: 1.8 },
+            manutenzione: { base: 45, material: 8, complexity: 1.1 }
+        };
+
+        const serviceNames = {
+            imbiancatura: 'Imbiancatura',
+            cappotto: 'Cappotto Termico',
+            decorazioni: 'Decorazioni Artistiche',
+            cartongesso: 'Cartongesso',
+            ristrutturazione: 'Ristrutturazione',
+            manutenzione: 'Manutenzione'
+        };
+
+        // =============================================
+        // MENU HAMBURGER
+        // =============================================
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const header = document.getElementById('header');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+        });
+
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // =============================================
+        // HEADER SCROLL EFFECT
+        // =============================================
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // =============================================
+        // GESTIONE STEPS
+        // =============================================
+        function updateStepIndicators() {
+            for (let i = 1; i <= 4; i++) {
+                const step = document.getElementById(`step${i}`);
+                const content = document.getElementById(`content${i}`);
+                
+                if (i < currentStep) {
+                    step.classList.add('completed');
+                    step.classList.remove('active');
+                } else if (i === currentStep) {
+                    step.classList.add('active');
+                    step.classList.remove('completed');
+                } else {
+                    step.classList.remove('active', 'completed');
+                }
+                
+                content.classList.toggle('active', i === currentStep);
+            }
+        }
+
+        function nextStep() {
+            if (validateCurrentStep()) {
+                currentStep++;
+                updateStepIndicators();
+                scrollToTop();
+                
+                if (currentStep === 2) {
+                    updateSpecificFields();
+                }
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStepIndicators();
+                scrollToTop();
+            }
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // =============================================
+        // VALIDAZIONE STEPS
+        // =============================================
+        function validateCurrentStep() {
+            switch (currentStep) {
+                case 1:
+                    if (!selectedService) {
+                        alert('Seleziona un servizio per continuare');
+                        return false;
+                    }
+                    return true;
+                    
+                case 2:
+                    const area = document.getElementById('area').value;
+                    if (!area || area <= 0) {
+                        alert('Inserisci una superficie valida');
+                        document.getElementById('area').focus();
+                        return false;
+                    }
+                    return true;
+                    
+                case 3:
+                    return true;
+                    
+                default:
+                    return true;
+            }
+        }
+
+        // =============================================
+        // SELEZIONE SERVIZIO
+        // =============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            const serviceOptions = document.querySelectorAll('.service-option');
+            
+            serviceOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    serviceOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                    selectedService = option.dataset.service;
+                    
+                    const nextBtn = document.getElementById('nextBtn1');
+                    nextBtn.disabled = false;
+                    nextBtn.style.opacity = '1';
+                });
+            });
+
+            // Checkbox handling
+            setupCheckboxes();
+        });
+
+        // =============================================
+        // CAMPI SPECIFICI PER SERVIZIO
+        // =============================================
+        function updateSpecificFields() {
+            const specificFields = document.getElementById('specificFields');
+            let fieldsHTML = '';
+
+            switch(selectedService) {
+                case 'imbiancatura':
+                    fieldsHTML = `
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="paintType">Tipo di Pittura</label>
+                                <select id="paintType">
+                                    <option value="standard">Idropittura standard</option>
+                                    <option value="lavabile">Pittura lavabile</option>
+                                    <option value="antimuffa">Pittura antimuffa</option>
+                                    <option value="premium">Pittura premium</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="coats">Numero di Mani</label>
+                                <select id="coats">
+                                    <option value="2">2 mani standard</option>
+                                    <option value="3">3 mani (consigliato)</option>
+                                    <option value="1">1 mano (solo ritocchi)</option>
+                                </select>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'cappotto':
+                    fieldsHTML = `
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="insulationType">Tipo di Isolamento</label>
+                                <select id="insulationType">
+                                    <option value="eps">Polistirene espanso (EPS)</option>
+                                    <option value="poliuretano">Poliuretano</option>
+                                    <option value="fibra-legno">Fibra di legno</option>
+                                    <option value="lana-roccia">Lana di roccia</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="thickness">Spessore (cm)</label>
+                                <select id="thickness">
+                                    <option value="8">8 cm</option>
+                                    <option value="10">10 cm (standard)</option>
+                                    <option value="12">12 cm</option>
+                                    <option value="15">15 cm (massimo isolamento)</option>
+                                </select>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'decorazioni':
+                    fieldsHTML = `
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="decorationType">Tipo di Decorazione</label>
+                                <select id="decorationType">
+                                    <option value="stucco-veneziano">Stucco Veneziano</option>
+                                    <option value="spatolato">Spatolato</option>
+                                    <option value="marmorino">Marmorino</option>
+                                    <option value="finto-mare">Finto Mare</option>
+                                    <option value="personalizzato">Design personalizzato</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="complexity">Complessità Design</label>
+                                <select id="complexity">
+                                    <option value="semplice">Design semplice</option>
+                                    <option value="medio">Design medio</option>
+                                    <option value="complesso">Design complesso</option>
+                                    <option value="artistico">Design artistico</option>
+                                </select>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'cartongesso':
+                    fieldsHTML = `
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="workType">Tipo di Intervento</label>
+                                <select id="workType">
+                                    <option value="controsoffitto">Controsoffitto</option>
+                                    <option value="parete">Parete divisoria</option>
+                                    <option value="nicchie">Nicchie e mensole</option>
+                                    <option value="completo">Lavoro completo</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="thickness">Spessore</label>
+                                <select id="thickness">
+                                    <option value="standard">Standard (12.5mm)</option>
+                                    <option value="rinforzato">Rinforzato (15mm)</option>
+                                    <option value="doppio">Doppio strato</option>
+                                </select>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'ristrutturazione':
+                    fieldsHTML = `
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="renovationType">Tipo di Ristrutturazione</label>
+                                <select id="renovationType">
+                                    <option value="bagno">Solo bagno</option>
+                                    <option value="cucina">Solo cucina</option>
+                                    <option value="parziale">Ristrutturazione parziale</option>
+                                    <option value="completa">Ristrutturazione completa</option>
+                                    <option value="appartamento">Intero appartamento</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="finishLevel">Livello di Finitura</label>
+                                <select id="finishLevel">
+                                    <option value="standard">Standard</option>
+                                    <option value="premium">Premium</option>
+                                    <option value="luxury">Luxury</option>
+                                </select>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'manutenzione':
+                    fieldsHTML = `
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="serviceType">Tipo di Servizio</label>
+                                <select id="serviceType">
+                                    <option value="elettrico">Interventi elettrici</option>
+                                    <option value="idraulico">Interventi idraulici</option>
+                                    <option value="tapparelle">Tapparelle e avvolgibili</option>
+                                    <option value="generale">Manutenzione generale</option>
+                                    <option value="emergenza">Intervento di emergenza</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="hours">Ore Stimate</label>
+                                <select id="hours">
+                                    <option value="2">2 ore</option>
+                                    <option value="4">4 ore</option>
+                                    <option value="8">8 ore (giornata)</option>
+                                    <option value="16">2 giorni</option>
+                                    <option value="40">1 settimana</option>
+                                </select>
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
+
+            specificFields.innerHTML = fieldsHTML;
+        }
+
+        // =============================================
+        // GESTIONE CHECKBOX
+        // =============================================
+        function setupCheckboxes() {
+            const checkboxItems = document.querySelectorAll('.checkbox-item');
+            
+            checkboxItems.forEach(item => {
+                const checkbox = item.querySelector('input[type="checkbox"]');
+                
+                item.addEventListener('click', (e) => {
+                    if (e.target.type !== 'checkbox') {
+                        checkbox.checked = !checkbox.checked;
+                    }
+                    item.classList.toggle('checked', checkbox.checked);
+                });
+
+                checkbox.addEventListener('change', () => {
+                    item.classList.toggle('checked', checkbox.checked);
+                });
+            });
+        }
+
+        // =============================================
+        // CALCOLO PREVENTIVO
+        // =============================================
+        function calculateEstimate() {
+            const area = parseFloat(document.getElementById('area').value) || 0;
+            const height = parseFloat(document.getElementById('height').value) || 2.7;
+            const rooms = parseInt(document.getElementById('rooms').value) || 1;
+            const condition = document.getElementById('condition').value || 'buona';
+            const urgency = document.getElementById('urgency').value || 'normale';
+
+            if (area <= 0) {
+                alert('Inserisci una superficie valida');
+                return;
+            }
+
+            // Calcolo superficie totale
+            let totalArea = area;
+            if (selectedService === 'imbiancatura' || selectedService === 'decorazioni') {
+                // Per imbiancature: superficie pareti + soffitto
+                totalArea = (Math.sqrt(area) * 4 * height) + area;
+            }
+
+            // Costi base
+            const rates = serviceRates[selectedService];
+            let baseCost = totalArea * rates.base;
+            let materialCost = totalArea * rates.material;
+
+            // Fattori condizioni
+            const conditionMultiplier = {
+                'ottima': 1.0,
+                'buona': 1.1,
+                'media': 1.3,
+                'scarsa': 1.6
+            };
+
+            // Fattori urgenza
+            const urgencyMultiplier = {
+                'normale': 1.0,
+                'veloce': 1.15,
+                'urgente': 1.3
+            };
+
+            // Fattore numero stanze
+            const roomsMultiplier = Math.min(1 + (rooms - 1) * 0.1, 1.5);
+
+            // Servizi aggiuntivi
+            let extrasCost = 0;
+            const checkedOptions = document.querySelectorAll('.checkbox-item input:checked');
+            
+            checkedOptions.forEach(option => {
+                const item = option.closest('.checkbox-item');
+                const cost = parseFloat(item.dataset.cost) || 0;
+                
+                if (cost > 0) {
+                    if (option.value === 'preparazione') {
+                        extrasCost += totalArea * cost;
+                    } else {
+                        extrasCost += cost;
+                    }
+                }
+            });
+
+            // Applicazione moltiplicatori percentuali
+            let percentageMultiplier = 1.0;
+            checkedOptions.forEach(option => {
+                switch(option.value) {
+                    case 'materiali':
+                        percentageMultiplier *= 1.2;
+                        break;
+                    case 'weekend':
+                        percentageMultiplier *= 1.15;
+                        break;
+                    case 'garanzia':
+                        percentageMultiplier *= 1.1;
+                        break;
+                }
+            });
+
+            // Calcolo finale
+            const conditionFactor = conditionMultiplier[condition];
+            const urgencyFactor = urgencyMultiplier[urgency];
+            const complexityFactor = rates.complexity;
+            
+            const laborCost = baseCost * conditionFactor * urgencyFactor * roomsMultiplier * complexityFactor * percentageMultiplier;
+            const adjustedMaterialCost = materialCost * percentageMultiplier;
+            const totalCost = adjustedMaterialCost + laborCost + extrasCost;
+
+            // Range di prezzo (±15%)
+            const minPrice = Math.round(totalCost * 0.85);
+            const maxPrice = Math.round(totalCost * 1.15);
+
+            // Salva dati per export
+            calculationData = {
+                service: selectedService,
+                serviceName: serviceNames[selectedService],
+                area: area,
+                totalArea: Math.round(totalArea),
+                height: height,
+                rooms: rooms,
+                condition: condition,
+                urgency: urgency,
+                materialCost: Math.round(adjustedMaterialCost),
+                laborCost: Math.round(laborCost),
+                extrasCost: Math.round(extrasCost),
+                totalCost: Math.round(totalCost),
+                minPrice: minPrice,
+                maxPrice: maxPrice,
+                extras: Array.from(checkedOptions).map(o => o.value),
+                notes: document.getElementById('notes').value,
+                location: document.getElementById('location').value,
+                timestamp: new Date().toLocaleString('it-IT')
+            };
+
+            // Mostra risultati
+            displayResults(calculationData);
+            
+            // Vai allo step 4
+            currentStep = 4;
+            updateStepIndicators();
+            scrollToTop();
+        }
+
+        // =============================================
+        // DISPLAY RISULTATI
+        // =============================================
+        function displayResults(data) {
+            document.getElementById('totalPrice').textContent = `€ ${data.totalCost.toLocaleString()}`;
+            document.getElementById('priceRange').textContent = `Range: € ${data.minPrice.toLocaleString()} - € ${data.maxPrice.toLocaleString()}`;
+            document.getElementById('totalArea').textContent = `${data.totalArea} mq`;
+            document.getElementById('materialCost').textContent = `€ ${data.materialCost.toLocaleString()}`;
+            document.getElementById('laborCost').textContent = `€ ${data.laborCost.toLocaleString()}`;
+            document.getElementById('extraCost').textContent = `€ ${data.extrasCost.toLocaleString()}`;
+
+            // Animazione progress bar
+            setTimeout(() => {
+                document.getElementById('progressBar').style.width = '100%';
+            }, 500);
+
+            // Animazione contatori
+            animateCounters();
+        }
+
+        function animateCounters() {
+            const counters = document.querySelectorAll('.detail-value');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.textContent.replace(/[€.,]/g, '')) || 0;
+                let current = 0;
+                const increment = target / 50;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        counter.textContent = counter.textContent; // Keep original format
+                        clearInterval(timer);
+                    } else {
+                        const formatted = Math.floor(current).toLocaleString();
+                        if (counter.textContent.includes('€')) {
+                            counter.textContent = `€ ${formatted}`;
+                        } else {
+                            counter.textContent = `${formatted} mq`;
+                        }
+                    }
+                }, 30);
+            });
+        }
+
+        // =============================================
+        // AZIONI CTA
+        // =============================================
+        function sendQuoteByEmail() {
+            const subject = encodeURIComponent(`Preventivo ${calculationData.serviceName} - T.E.C.H Building Future`);
+            const body = encodeURIComponent(createEmailBody());
+            const mailtoLink = `mailto:info@techbuildingfuture.it?subject=${subject}&body=${body}`;
+            window.location.href = mailtoLink;
+        }
+
+        function createEmailBody() {
+            return `PREVENTIVO CALCOLATO ONLINE - T.E.C.H BUILDING FUTURE
+
+SERVIZIO: ${calculationData.serviceName}
+DATA: ${calculationData.timestamp}
+
+DETTAGLI PROGETTO:
+- Superficie: ${calculationData.area} mq
+- Superficie totale da trattare: ${calculationData.totalArea} mq
+- Altezza soffitti: ${calculationData.height} m
+- Numero stanze: ${calculationData.rooms}
+- Condizioni attuali: ${calculationData.condition}
+- Tempistiche: ${calculationData.urgency}
+- Località: ${calculationData.location || 'Non specificata'}
+
+COSTI STIMATI:
+- Materiali: € ${calculationData.materialCost.toLocaleString()}
+- Manodopera: € ${calculationData.laborCost.toLocaleString()}
+- Servizi extra: € ${calculationData.extrasCost.toLocaleString()}
+- TOTALE: € ${calculationData.totalCost.toLocaleString()}
+- Range di prezzo: € ${calculationData.minPrice.toLocaleString()} - € ${calculationData.maxPrice.toLocaleString()}
+
+SERVIZI AGGIUNTIVI:
+${calculationData.extras.length > 0 ? calculationData.extras.join(', ') : 'Nessuno'}
+
+NOTE:
+${calculationData.notes || 'Nessuna nota aggiuntiva'}
+
+---
+IMPORTANTE: Questo è un preventivo indicativo. Per una quotazione precisa è necessario un sopralluogo gratuito.
+
+Contatti:
+Tel: +39 340 868 5801 / +39 392 596 8739
+Email: info@techbuildingfuture.it
+WhatsApp: +39 340 868 5801`;
+        }
+
+        function downloadPDF() {
+            // Per ora genera un alert, in futuro si può implementare jsPDF
+            alert('Funzione PDF in sviluppo. Per ora puoi inviare il preventivo via email o contattarci direttamente.');
+        }
+
+        function resetCalculator() {
+            if (confirm('Sei sicuro di voler iniziare un nuovo preventivo? Tutti i dati inseriti verranno persi.')) {
+                location.reload();
+            }
+        }
+
+        // =============================================
+        // HELP SYSTEM
+        // =============================================
+        function showHelp() {
+            const helpTexts = {
+                1: 'Seleziona il tipo di servizio di cui hai bisogno. Ogni servizio ha tariffe e caratteristiche diverse.',
+                2: 'Inserisci le dimensioni e i dettagli del tuo progetto. Più informazioni fornisci, più preciso sarà il preventivo.',
+                3: 'Scegli i servizi aggiuntivi che potrebbero esserti utili. Alcuni sono opzionali e influenzeranno il prezzo finale.',
+                4: 'Ecco il tuo preventivo! Ricorda che è indicativo e potrebbe variare dopo il sopralluogo gratuito.'
+            };
+            
+            alert(helpTexts[currentStep] || 'Contattaci per qualsiasi domanda al +39 340 868 5801');
+        }
+
+        // =============================================
+        // INIT
+        // =============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            updateStepIndicators();
+            
+            // Precompila alcuni campi se presenti nell'URL
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('service')) {
+                const serviceElement = document.querySelector(`[data-service="${urlParams.get('service')}"]`);
+                if (serviceElement) {
+                    serviceElement.click();
+                }
+            }
+        });
+
+        // =============================================
+        // ACCESSIBILITY
+        // =============================================
+        // =============================================
+        // ACCESSIBILITY
+        // =============================================
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Focus management per step navigation
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    btn.click();
+                }
+            });
+        });
+
+        // Auto-save progress in localStorage
+        function saveProgress() {
+            const progress = {
+                currentStep,
+                selectedService,
+                formData: {}
+            };
+            
+            // Save form data
+            const inputs = document.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                if (input.type === 'checkbox') {
+                    progress.formData[input.id] = input.checked;
+                } else {
+                    progress.formData[input.id] = input.value;
+                }
+            });
+            
+            localStorage.setItem('calculatorProgress', JSON.stringify(progress));
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem('calculatorProgress');
+            if (saved) {
+                try {
+                    const progress = JSON.parse(saved);
+                    
+                    // Restore service selection
+                    if (progress.selectedService) {
+                        selectedService = progress.selectedService;
+                        const serviceElement = document.querySelector(`[data-service="${selectedService}"]`);
+                        if (serviceElement) {
+                            serviceElement.classList.add('selected');
+                            document.getElementById('nextBtn1').disabled = false;
+                        }
+                    }
+                    
+                    // Restore form data
+                    Object.entries(progress.formData).forEach(([id, value]) => {
+                        const element = document.getElementById(id);
+                        if (element) {
+                            if (element.type === 'checkbox') {
+                                element.checked = value;
+                            } else {
+                                element.value = value;
+                            }
+                        }
+                    });
+                    
+                } catch (error) {
+                    console.error('Error loading progress:', error);
+                }
+            }
+        }
+
+        // Save progress on input changes
+        document.addEventListener('input', saveProgress);
+        document.addEventListener('change', saveProgress);
+
+        // Clear progress when calculation is complete
+        function clearProgress() {
+            localStorage.removeItem('calculatorProgress');
+        }
+
+        // =============================================
+        // PERFORMANCE OPTIMIZATIONS
+        // =============================================
+        
+        // Lazy load delle animazioni
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Osserva elementi animabili
+        document.querySelectorAll('.fade-in, .slide-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Debounce per input numerici
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Validazione in tempo reale
+        const validateInput = debounce((input) => {
+            if (input.type === 'number') {
+                const value = parseFloat(input.value);
+                const min = parseFloat(input.min);
+                const max = parseFloat(input.max);
+                
+                if (value < min || value > max) {
+                    input.style.borderColor = 'var(--error-color)';
+                } else {
+                    input.style.borderColor = 'var(--success-color)';
+                }
+            }
+        }, 300);
+
+        document.querySelectorAll('input[type="number"]').forEach(input => {
+            input.addEventListener('input', () => validateInput(input));
+        });
+
+        // =============================================
+        // ANALYTICS & TRACKING (placeholder)
+        // =============================================
+        function trackEvent(action, category = 'Calculator') {
+            // Placeholder per Google Analytics o altri sistemi di tracking
+            console.log(`Track: ${category} - ${action}`);
+            
+            // Esempio per GA4:
+            // gtag('event', action, {
+            //     event_category: category,
+            //     event_label: selectedService
+            // });
+        }
+
+        // Track step completions
+        const originalNextStep = nextStep;
+        nextStep = function() {
+            trackEvent(`Step ${currentStep} Completed`);
+            originalNextStep();
+        };
+
+        // Track service selections
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.service-option')) {
+                const service = e.target.closest('.service-option').dataset.service;
+                trackEvent('Service Selected', 'Calculator', service);
+            }
+        });
+
+        // =============================================
+        // ERROR HANDLING
+        // =============================================
+        window.addEventListener('error', (e) => {
+            console.error('Calculator Error:', e.error);
+            // In produzione, invia errori a un servizio di monitoring
+        });
+
+        // Fallback per calcoli
+        function safeCalculate(calculation) {
+            try {
+                return calculation();
+            } catch (error) {
+                console.error('Calculation error:', error);
+                alert('Si è verificato un errore nel calcolo. Riprova o contattaci direttamente.');
+                return null;
+            }
+        }
+
+        // =============================================
+        // INIT FINALE
+        // =============================================
+        window.addEventListener('load', () => {
+            loadProgress();
+            
+            // Preload delle pagine correlate
+            const preloadPages = ['contatti.html', 'index.html'];
+            preloadPages.forEach(page => {
+                const link = document.createElement('link');
+                link.rel = 'prefetch';
+                link.href = page;
+                document.head.appendChild(link);
+            });
+            
+            console.log('🧮 Calcolatore Preventivi T.E.C.H Building Future inizializzato');
+        });
+
+        // Service Worker registration (per PWA future)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => console.log('SW registered'))
+                    .catch(error => console.log('SW registration failed'));
+            });
+        }
+
+        // =============================================
+        // UTILS
+        // =============================================
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('it-IT', {
+                style: 'currency',
+                currency: 'EUR',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
+
+        function formatNumber(number) {
+            return new Intl.NumberFormat('it-IT').format(number);
+        }
+
+        // Clipboard copy function
+        function copyToClipboard(text) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text)
+                    .then(() => alert('Preventivo copiato negli appunti!'))
+                    .catch(() => fallbackCopyToClipboard(text));
+            } else {
+                fallbackCopyToClipboard(text);
+            }
+        }
+
+        function fallbackCopyToClipboard(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                alert('Preventivo copiato negli appunti!');
+            } catch (err) {
+                alert('Impossibile copiare il preventivo');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        // Add copy button to results
+        function addCopyButton() {
+            if (calculationData && Object.keys(calculationData).length > 0) {
+                const copyButton = document.createElement('button');
+                copyButton.className = 'cta-button';
+                copyButton.innerHTML = '📋 Copia Preventivo';
+                copyButton.onclick = () => copyToClipboard(createEmailBody());
+                
+                const actionsContainer = document.querySelector('.cta-actions');
+                if (actionsContainer && !actionsContainer.querySelector('.copy-button')) {
+                    copyButton.classList.add('copy-button');
+                    actionsContainer.appendChild(copyButton);
+                }
+            }
+        }
+
+        // Call addCopyButton after results are displayed
+        const originalDisplayResults = displayResults;
+        displayResults = function(data) {
+            originalDisplayResults(data);
+            setTimeout(addCopyButton, 500);
+        };
+    </script>
+</body>
+</html>
