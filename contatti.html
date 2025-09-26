@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contatti - T.E.C.H Building Future | Preventivi Gratuiti</title>
+    <meta name="description" content="Contatta T.E.C.H Building Future per preventivi gratuiti. Sede a Gallarate (VA), serviamo Milano e Provincia. Sopralluoghi senza impegno.">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --accent-color: #4facfe;
+            --dark-blue: #1a365d;
+            --text-color: #2d3748;
+            --light-gray: #f7fafc;
+            --border-color: rgba(102, 126, 234, 0.2);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --success-color: #48bb78;
+            --warning-color: #ed8936;
+            --error-color: #f56565;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--light-gray);
+            overflow-x: hidden;
+        }
+
+        /* HEADER */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark-blue);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: none;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* HAMBURGER MENU */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark-blue);
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            transition: right 0.4s ease;
+            padding-top: 80px;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            padding: 2rem;
+        }
+
+        .mobile-menu li {
+            margin-bottom: 1.5rem;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: block;
+            padding: 1rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            background: var(--gradient);
+            color: white;
+            transform: translateX(10px);
+        }
+
+        /* BREADCRUMB */
+        .breadcrumb {
+            background: white;
+            padding: 1rem 1.5rem;
+            margin-top: 70px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .breadcrumb-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--border-color);
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* CONTACT GRID */
+        .contact-grid {
+            display: grid;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-section {
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: var(--gradient);
+            color: white;
+            padding: 1.5rem 2rem;
+            position: relative;
+        }
+
+        .section-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="headerPattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23headerPattern)"/></svg>');
+            z-index: 0;
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-content {
+            padding: 2rem;
+        }
+
+        /* FORM STYLES */
+        .form-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+        }
+
+        .form-group.required label::after {
+            content: ' *';
+            color: var(--error-color);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-group.error input,
+        .form-group.error select,
+        .form-group.error textarea {
+            border-color: var(--error-color);
+        }
+
+        .form-group.success input,
+        .form-group.success select,
+        .form-group.success textarea {
+            border-color: var(--success-color);
+        }
+
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* CONTACT INFO CARDS */
+        .contact-info-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .contact-card {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+            border-color: var(--primary-color);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .contact-details h4 {
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .contact-details p {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .contact-details a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-details a:hover {
+            text-decoration: underline;
+        }
+
+        /* MAP SECTION */
+        .map-section {
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--border-color);
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .map-container {
+            height: 400px;
+            position: relative;
+        }
+
+        .map-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            filter: grayscale(20%) contrast(1.2);
+            transition: filter 0.3s ease;
+        }
+
+        .map-iframe:hover {
+            filter: grayscale(0%) contrast(1);
+        }
+
+        .map-overlay {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            max-width: 300px;
+        }
+
+        .map-overlay h4 {
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .map-overlay p {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .map-overlay a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* EMERGENCY SECTION */
+        .emergency-section {
+            background: linear-gradient(135deg, var(--error-color), #e53e3e);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .emergency-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="emergencyPattern" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="7.5" cy="7.5" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23emergencyPattern)"/></svg>');
+            z-index: 0;
+        }
+
+        .emergency-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .emergency-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .emergency-section p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        /* BUTTONS */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-emergency {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-emergency:hover {
+            background: white;
+            color: var(--error-color);
+        }
+
+        .btn-fullwidth {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        /* SUCCESS MESSAGE */
+        .success-message {
+            background: var(--success-color);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .success-message.show {
+            display: flex;
+        }
+
+        .success-message .icon {
+            font-size: 1.2rem;
+        }
+
+        /* WORKING HOURS */
+        .hours-grid {
+            display: grid;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .hour-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hour-item:last-child {
+            border-bottom: none;
+        }
+
+        .hour-item .day {
+            font-weight: 600;
+            color: var(--dark-blue);
+        }
+
+        .hour-item .time {
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        /* COMPANY INFO */
+        .company-info {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 2px solid var(--border-color);
+            margin-top: 1.5rem;
+        }
+
+        .company-info h4 {
+            color: var(--dark-blue);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .company-info p {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        .company-info strong {
+            color: var(--dark-blue);
+        }
+
+        /* FLOATING ELEMENTS */
+        .floating-contact {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+
+        .floating-btn {
+            background: var(--success-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .floating-btn:hover {
+            transform: scale(1.1);
+            animation: none;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4); }
+            50% { box-shadow: 0 4px 15px rgba(72, 187, 120, 0.6), 0 0 0 10px rgba(72, 187, 120, 0.1); }
+            100% { box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4); }
+        }
+
+        /* RESPONSIVE */
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+
+            .hamburger {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: none;
+            }
+
+            .page-title {
+                font-size: 3rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .contact-info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .map-container {
+                height: 500px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .contact-info-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .form-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .form-group.full-width {
+                grid-column: 1 / -1;
+            }
+        }
+
+        /* ANIMATIONS */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in {
+            transform: translateX(-50px);
+            opacity: 0;
+            transition: all 0.6s ease;
+        }
+
+        .slide-in.visible {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header" id="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">T.E.C.H Building Future</a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="calcolatore.html">Calcolatore</a></li>
+                <li><a href="servizi.html">Servizi</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contatti.html" class="active">Contatti</a></li>
+            </ul>
+
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="calcolatore.html">🧮 Calcolatore</a></li>
+                <li><a href="servizi.html">🔧 Servizi</a></li>
+                <li><a href="gallery.html">📸 Gallery</a></li>
+                <li><a href="contatti.html">📞 Contatti</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb">
+        <div class="breadcrumb-content">
+            <a href="index.html">Home</a> / Contatti
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- PAGE HEADER -->
+        <div class="page-header fade-in">
+            <h1 class="page-title">Contattaci</h1>
+            <p class="page-subtitle">
+                Siamo pronti ad aiutarti con il tuo progetto. Preventivi gratuiti, 
+                sopralluoghi senza impegno e consulenza professionale.
+            </p>
+        </div>
+
+        <!-- CONTACT GRID -->
+        <div class="contact-grid">
+            <!-- FORM SECTION -->
+            <div class="contact-section fade-in">
+                <div class="section-header">
+                    <h2>📋 Richiedi Preventivo</h2>
+                </div>
+                <div class="section-content">
+                    <div class="success-message" id="successMessage">
+                        <span class="icon">✅</span>
+                        <span>Richiesta inviata con successo! Ti ricontatteremo entro 24 ore.</span>
+                    </div>
+
+                    <form id="contactForm" onsubmit="handleFormSubmit(event)">
+                        <div class="form-grid">
+                            <div class="form-group required">
+                                <label for="nome">Nome</label>
+                                <input type="text" id="nome" name="nome" required>
+                                <div class="error-message">Inserisci il tuo nome</div>
+                            </div>
+
+                            <div class="form-group required">
+                                <label for="cognome">Cognome</label>
+                                <input type="text" id="cognome" name="cognome" required>
+                                <div class="error-message">Inserisci il tuo cognome</div>
+                            </div>
+
+                            <div class="form-group required">
+                                <label for="telefono">Telefono</label>
+                                <input type="tel" id="telefono" name="telefono" required>
+                                <div class="error-message">Inserisci un numero di telefono valido</div>
+                            </div>
+
+                            <div class="form-group required">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" required>
+                                <div class="error-message">Inserisci un indirizzo email valido</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="servizio">Servizio Richiesto</label>
+                                <select id="servizio" name="servizio">
+                                    <option value="">Seleziona un servizio</option>
+                                    <option value="imbiancatura">🎨 Imbiancatura</option>
+                                    <option value="cappotto">🏠 Cappotto Termico</option>
+                                    <option value="decorazioni">✨ Decorazioni Artistiche</option>
+                                    <option value="cartongesso">🔧 Cartongesso</option>
+                                    <option value="ristrutturazione">🔄 Ristrutturazione</option>
+                                    <option value="elettrico">⚡ Elettrico</option>
+                                    <option value="idraulico">🔧 Idraulico</option>
+                                    <option value="pulizie">🧹 Pulizie</option>
+                                    <option value="manutenzione">🛠️ Manutenzione</option>
+                                    <option value="emergenza">🚨 Emergenza</option>
+                                    <option value="altro">❓ Altro</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="urgenza">Urgenza</label>
+                                <select id="urgenza" name="urgenza">
+                                    <option value="normale">📅 Normale (1-2 settimane)</option>
+                                    <option value="veloce">⏱️ Veloce (entro 1 settimana)</option>
+                                    <option value="urgente">🚨 Urgente (entro 48h)</option>
+                                    <option value="immediata">⚡ Immediata (oggi)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="indirizzo">Indirizzo Lavori</label>
+                                <input type="text" id="indirizzo" name="indirizzo" placeholder="Via, Città, Provincia">
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="budget">Budget Indicativo</label>
+                                <select id="budget" name="budget">
+                                    <option value="">Seleziona un range</option>
+                                    <option value="500-1000">€ 500 - € 1.000</option>
+                                    <option value="1000-2500">€ 1.000 - € 2.500</option>
+                                    <option value="2500-5000">€ 2.500 - € 5.000</option>
+                                    <option value="5000-10000">€ 5.000 - € 10.000</option>
+                                    <option value="10000+">Oltre € 10.000</option>
+                                    <option value="da-valutare">Da valutare insieme</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group full-width required">
+                                <label for="messaggio">Descrizione del Progetto</label>
+                                <textarea id="messaggio" name="messaggio" placeholder="Descrivi dettagliatamente il lavoro da svolgere, dimensioni, materiali preferiti, tempistiche e qualsiasi altra informazione utile per il preventivo..." required></textarea>
+                                <div class="error-message">Descrivi il tuo progetto</div>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                    <input type="checkbox" name="privacy" required style="width: auto; margin: 0;">
+                                    <span>Accetto il trattamento dei dati personali secondo la normativa Privacy *</span>
+                                </label>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                    <input type="checkbox" name="newsletter" style="width: auto; margin: 0;">
+                                    <span>Desidero ricevere informazioni su offerte e novità</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-fullwidth">
+                            📤 Invia Richiesta Preventivo
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- CONTACT INFO SECTION -->
+            <div class="contact-section fade-in">
+                <div class="section-header">
+                    <h2>📞 Informazioni di Contatto</h2>
+                </div>
+                <div class="section-content">
+                    <div class="contact-info-grid">
+                        <div class="contact-card slide-in">
+                            <div class="contact-icon">📞</div>
+                            <div class="contact-details">
+                                <h4>Telefono</h4>
+                                <p>
+                                    <a href="tel:+393408685801">+39 340 868 5801</a><br>
+                                    <a href="tel:+393925968739">+39 392 596 8739</a><br>
+                                    <small>Lun-Ven 8:00-18:00 | Sab 8:00-12:00</small>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="contact-card slide-in">
+                            <div class="contact-icon">💬</div>
+                            <div class="contact-details">
+                                <h4>WhatsApp</h4>
+                                <p>
+                                    <a href="https://wa.me/393408685801?text=Ciao! Vorrei informazioni sui vostri servizi.">+39 340 868 5801</a><br>
+                                    <small>Risposta rapida garantita<br>Foto e documenti via chat</small>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="contact-card slide-in">
+                            <div class="contact-icon">📧</div>
+                            <div class="contact-details">
+                                <h4>Email</h4>
+                                <p>
+                                    <a href="mailto:info@techbuildingfuture.it">info@techbuildingfuture.it</a><br>
+                                    <small>Risposta entro 24h<br>Preventivi dettagliati</small>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="contact-card slide-in">
+                            <div class="contact-icon">📨</div>
+                            <div class="contact-details">
+                                <h4>PEC Aziendale</h4>
+                                <p>
+                                    <a href="mailto:postmaster@pec.techbuildingfuturesrl.it">PEC Ufficiale</a><br>
+                                    <small>Per comunicazioni formali<br>e documenti ufficiali</small>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="contact-card slide-in">
+                            <div class="contact-icon">📍</div>
+                            <div class="contact-details">
+                                <h4>Zona di Intervento</h4>
+                                <p>
+                                    Milano e Provincia<br>
+                                    Varese e Zone Limitrofe<br>
+                                    <small>Sopralluoghi gratuiti ovunque</small>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="contact-card slide-in">
+                            <div class="contact-icon">🕒</div>
+                            <div class="contact-details">
+                                <h4>Disponibilità</h4>
+                                <p>
+                                    Lun-Ven: 8:00-18:00<br>
+                                    Sabato: 8:00-12:00<br>
+                                    <small>Emergenze 24/7 disponibili</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- WORKING HOURS DETAIL -->
+                    <div class="company-info">
+                        <h4>📅 Orari di Lavoro Dettagliati</h4>
+                        <div class="hours-grid">
+                            <div class="hour-item">
+                                <span class="day">Lunedì - Venerdì</span>
+                                <span class="time">8:00 - 18:00</span>
+                            </div>
+                            <div class="hour-item">
+                                <span class="day">Sabato</span>
+                                <span class="time">8:00 - 12:00</span>
+                            </div>
+                            <div class="hour-item">
+                                <span class="day">Domenica</span>
+                                <span class="time">Solo Emergenze</span>
+                            </div>
+                            <div class="hour-item">
+                                <span class="day">Sopralluoghi</span>
+                                <span class="time">Su Appuntamento</span>
+                            </div>
+                            <div class="hour-item">
+                                <span class="day">Emergenze 24/7</span>
+                                <span class="time">Sempre Disponibili</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COMPANY DATA -->
+                    <div class="company-info">
+                        <h4>🏢 Dati Aziendali</h4>
+                        <p><strong>T.E.C.H Building Future S.r.l</strong></p>
+                        <p><strong>Sede Legale e Operativa:</strong> Via Luigi Borghi, 8 - 21013 Gallarate (VA)</p>
+                        <p><strong>Partita IVA:</strong> 03960290124</p>
+                        <p><strong>Codice SDI:</strong> USAL8PV</p>
+                        <p><strong>Anno di Fondazione:</strong> 2010</p>
+                        <p><strong>Esperienza:</strong> Oltre 15 anni nel settore</p>
+                        <p><strong>Progetti Completati:</strong> 500+</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAP SECTION -->
+        <div class="map-section fade-in">
+            <div class="section-header">
+                <h2>📍 Dove Siamo</h2>
+            </div>
+            <div class="map-container">
+                <!-- Google Maps Embed -->
+                <iframe 
+                    class="map-iframe"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2798.1234567890123!2d8.7834567890123!3d45.6512345678901!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47868e123456789a%3A0x123456789abcdef0!2sVia%20Luigi%20Borghi%2C%208%2C%2021013%20Gallarate%20VA!5e0!3m2!1sit!2sit!4v1234567890123!5m2!1sit!2sit"
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Sede T.E.C.H Building Future - Via Luigi Borghi, 8, Gallarate">
+                </iframe>
+
+                <!-- Map Overlay Info -->
+                <div class="map-overlay">
+                    <h4>🏢 T.E.C.H Building Future</h4>
+                    <p><strong>📍 Indirizzo:</strong><br>Via Luigi Borghi, 8<br>21013 Gallarate (VA)</p>
+                    <p><strong>🚗 Come Raggiungerci:</strong><br>A8 Milano-Laghi, uscita Gallarate<br>Stazione FS a 5 minuti</p>
+                    <a href="https://maps.google.com/maps?q=Via+Luigi+Borghi+8+Gallarate" target="_blank">
+                        🗺️ Apri in Google Maps
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- EMERGENCY SECTION -->
+        <div class="emergency-section fade-in">
+            <div class="emergency-content">
+                <h3>🚨 Emergenze 24/7</h3>
+                <p>
+                    Per perdite d'acqua, guasti elettrici, problemi di riscaldamento o altre emergenze 
+                    che richiedono un intervento immediato, siamo disponibili 24 ore su 24.
+                </p>
+                <a href="tel:+393408685801" class="btn btn-emergency">
+                    📞 Chiamata di Emergenza
+                </a>
+                <a href="https://wa.me/393408685801?text=🚨 EMERGENZA! Ho bisogno di un intervento urgente" class="btn btn-emergency" style="margin-left: 1rem;">
+                    💬 WhatsApp Urgente
+                </a>
+            </div>
+        </div>
+
+        <!-- QUICK ACTIONS -->
+        <div class="contact-grid" style="margin-top: 2rem;">
+            <div class="contact-section fade-in">
+                <div class="section-header">
+                    <h2>⚡ Azioni Rapide</h2>
+                </div>
+                <div class="section-content">
+                    <div style="display: grid; gap: 1rem;">
+                        <a href="calcolatore.html" class="btn btn-primary">
+                            🧮 Calcola Preventivo Online
+                        </a>
+                        <a href="tel:+393408685801" class="btn btn-secondary">
+                            📞 Chiamata Diretta
+                        </a>
+                        <a href="https://wa.me/393408685801?text=Ciao! Vorrei informazioni sui vostri servizi." class="btn btn-secondary">
+                            💬 Chat WhatsApp
+                        </a>
+                        <a href="mailto:info@techbuildingfuture.it?subject=Richiesta Informazioni&body=Gentile T.E.C.H Building Future,%0D%0A%0D%0AVorrei ricevere informazioni sui vostri servizi.%0D%0A%0D%0ACordiali saluti" class="btn btn-secondary">
+                            📧 Scrivi Email
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-section fade-in">
+                <div class="section-header">
+                    <h2>❓ Domande Frequenti</h2>
+                </div>
+                <div class="section-content">
+                    <div style="text-align: left;">
+                        <h4 style="color: var(--dark-blue); margin-bottom: 0.5rem;">💰 Il sopralluogo è davvero gratuito?</h4>
+                        <p style="margin-bottom: 1rem; font-size: 0.9rem;">Sì, offriamo sopralluoghi gratuiti e senza impegno in tutta Milano e Provincia.</p>
+                        
+                        <h4 style="color: var(--dark-blue); margin-bottom: 0.5rem;">⏰ Quanto tempo per avere il preventivo?</h4>
+                        <p style="margin-bottom: 1rem; font-size: 0.9rem;">Entro 24 ore dalla richiesta ti inviamo un preventivo dettagliato.</p>
+                        
+                        <h4 style="color: var(--dark-blue); margin-bottom: 0.5rem;">🛡️ Che garanzie offrite?</h4>
+                        <p style="margin-bottom: 1rem; font-size: 0.9rem;">Garanzia standard 2 anni, estendibile a 5 anni sui nostri lavori.</p>
+                        
+                        <h4 style="color: var(--dark-blue); margin-bottom: 0.5rem;">💳 Accettate pagamenti rateali?</h4>
+                        <p style="font-size: 0.9rem;">Sì, offriamo soluzioni di pagamento flessibili e rateizzazioni personalizzate.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FLOATING CONTACT -->
+    <div class="floating-contact">
+        <a href="https://wa.me/393408685801?text=Ciao! Ho visto il vostro sito e vorrei informazioni sui servizi." class="floating-btn" title="WhatsApp Diretto">💬</a>
+    </div>
+
+    <script>
+        // =============================================
+        // MENU HAMBURGER
+        // =============================================
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const header = document.getElementById('header');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+        });
+
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // =============================================
+        // HEADER SCROLL EFFECT
+        // =============================================
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // =============================================
+        // FORM HANDLING & VALIDATION
+        // =============================================
+        const form = document.getElementById('contactForm');
+        const successMessage = document.getElementById('successMessage');
+
+        // Real-time validation
+        form.addEventListener('input', (e) => {
+            validateField(e.target);
+        });
+
+        form.addEventListener('blur', (e) => {
+            validateField(e.target);
+        }, true);
+
+        function validateField(field) {
+            const formGroup = field.closest('.form-group');
+            const errorMessage = formGroup?.querySelector('.error-message');
+            
+            if (!formGroup || !errorMessage) return;
+
+            let isValid = true;
+            let message = '';
+
+            // Remove previous states
+            formGroup.classList.remove('error', 'success');
+            errorMessage.classList.remove('show');
+
+            if (field.hasAttribute('required') && !field.value.trim()) {
+                isValid = false;
+                message = 'Questo campo è obbligatorio';
+            } else if (field.type === 'email' && field.value) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(field.value)) {
+                    isValid = false;
+                    message = 'Inserisci un indirizzo email valido';
+                }
+            } else if (field.type === 'tel' && field.value) {
+                const phoneRegex = /^[\+]?[\d\s\-\(\)]{10,}$/;
+                if (!phoneRegex.test(field.value)) {
+                    isValid = false;
+                    message = 'Inserisci un numero di telefono valido';
+                }
+            }
+
+            if (!isValid) {
+                formGroup.classList.add('error');
+                errorMessage.textContent = message;
+                errorMessage.classList.add('show');
+            } else if (field.value.trim()) {
+                formGroup.classList.add('success');
+            }
+
+            return isValid;
+        }
+
+        // Form submission
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            // Validate all required fields
+            const requiredFields = form.querySelectorAll('[required]');
+            let isFormValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!validateField(field)) {
+                    isFormValid = false;
+                }
+            });
+
+            if (!isFormValid) {
+                // Focus on first error field
+                const firstError = form.querySelector('.form-group.error input, .form-group.error select, .form-group.error textarea');
+                if (firstError) {
+                    firstError.focus();
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                return;
+            }
+
+            // Prepare form data
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Create email content
+            const emailContent = createEmailContent(data);
+            
+            // Show success message
+            successMessage.classList.add('show');
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Open email client
+            setTimeout(() => {
+                const mailtoLink = `mailto:info@techbuildingfuture.it?subject=${encodeURIComponent('Richiesta Preventivo - ' + (data.servizio || 'Servizio Generico'))}&body=${encodeURIComponent(emailContent)}`;
+                window.location.href = mailtoLink;
+            }, 1000);
+            
+            // Reset form after delay
+            setTimeout(() => {
+                form.reset();
+                form.querySelectorAll('.form-group').forEach(group => {
+                    group.classList.remove('error', 'success');
+                });
+                form.querySelectorAll('.error-message').forEach(msg => {
+                    msg.classList.remove('show');
+                });
+            }, 3000);
+
+            // Hide success message after 10 seconds
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 10000);
+
+            // Track form submission
+            trackFormSubmission(data);
+        }
+
+        function createEmailContent(data) {
+            const serviceNames = {
+                'imbiancatura': '🎨 Imbiancatura',
+                'cappotto': '🏠 Cappotto Termico',
+                'decorazioni': '✨ Decorazioni Artistiche',
+                'cartongesso': '🔧 Cartongesso',
+                'ristrutturazione': '🔄 Ristrutturazione',
+                'elettrico': '⚡ Elettrico',
+                'idraulico': '🔧 Idraulico',
+                'pulizie': '🧹 Pulizie',
+                'manutenzione': '🛠️ Manutenzione',
+                'emergenza': '🚨 Emergenza',
+                'altro': '❓ Altro'
+            };
+
+            const urgencyNames = {
+                'normale': '📅 Normale (1-2 settimane)',
+                'veloce': '⏱️ Veloce (entro 1 settimana)',
+                'urgente': '🚨 Urgente (entro 48h)',
+                'immediata': '⚡ Immediata (oggi)'
+            };
+
+            return `RICHIESTA PREVENTIVO - T.E.C.H BUILDING FUTURE
+
+═══════════════════════════════════════
+
+📋 DATI CLIENTE:
+Nome e Cognome: ${data.nome} ${data.cognome}
+📞 Telefono: ${data.telefono}
+📧 Email: ${data.email}
+
+═══════════════════════════════════════
+
+🔧 DETTAGLI RICHIESTA:
+Servizio: ${serviceNames[data.servizio] || 'Non specificato'}
+Urgenza: ${urgencyNames[data.urgenza] || 'Normale'}
+Indirizzo lavori: ${data.indirizzo || 'Non specificato'}
+Budget indicativo: ${data.budget || 'Da valutare'}
+
+═══════════════════════════════════════
+
+📝 DESCRIZIONE PROGETTO:
+${data.messaggio}
+
+═══════════════════════════════════════
+
+📅 DATA RICHIESTA: ${new Date().toLocaleDateString('it-IT')} alle ${new Date().toLocaleTimeString('it-IT')}
+🌐 FONTE: Modulo contatti sito web
+📱 NEWSLETTER: ${data.newsletter ? 'Sì' : 'No'}
+
+═══════════════════════════════════════
+
+Questa richiesta è stata inviata automaticamente dal modulo contatti del sito web.
+Si prega di ricontattare il cliente entro 24 ore come da policy aziendale.
+
+T.E.C.H Building Future S.r.l
+Via Luigi Borghi, 8 - 21013 Gallarate (VA)
+P.IVA: 03960290124`;
+        }
+
+        function trackFormSubmission(data) {
+            // Analytics tracking
+            console.log('Form submitted:', data);
+            
+            // Google Analytics event (se implementato)
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'form_submit', {
+                    event_category: 'Contact',
+                    event_label: data.servizio || 'general',
+                    value: 1
+                });
+            }
+        }
+
+        // =============================================
+        // TEXTAREA AUTO-RESIZE
+        // =============================================
+        const textarea = document.getElementById('messaggio');
+        if (textarea) {
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+        }
+
+        // =============================================
+        // CHARACTER COUNTER
+        // =============================================
+        function addCharacterCounter() {
+            const maxLength = 1000;
+            const counter = document.createElement('div');
+            counter.style.cssText = `
+                font-size: 0.8rem;
+                color: var(--text-color);
+                text-align: right;
+                margin-top: 0.5rem;
+            `;
+            
+            textarea.parentNode.appendChild(counter);
+            
+            textarea.addEventListener('input', function() {
+                const length = this.value.length;
+                counter.textContent = `${length}/${maxLength} caratteri`;
+                
+                if (length > maxLength * 0.9) {
+                    counter.style.color = 'var(--warning-color)';
+                } else if (length > maxLength * 0.95) {
+                    counter.style.color = 'var(--error-color)';
+                } else {
+                    counter.style.color = 'var(--text-color)';
+                }
+            });
+            
+            // Initial count
+            textarea.dispatchEvent(new Event('input'));
+        }
+
+        // =============================================
+        // MAP INTERACTIONS
+        // =============================================
+        function initMap() {
+            const mapContainer = document.querySelector('.map-container');
+            const mapOverlay = document.querySelector('.map-overlay');
+            
+            // Add click handler for better mobile experience
+            mapContainer.addEventListener('click', () => {
+                const mapIframe = mapContainer.querySelector('.map-iframe');
+                mapIframe.style.pointerEvents = 'auto';
+                
+                // Re-disable after scroll
+                setTimeout(() => {
+                    mapIframe.style.pointerEvents = 'none';
+                }, 5000);
+            });
+
+            // Prevent map scroll on mobile when scrolling page
+            if (window.innerWidth < 768) {
+                const mapIframe = mapContainer.querySelector('.map-iframe');
+                mapIframe.style.pointerEvents = 'none';
+            }
+        }
+
+        // =============================================
+        // ANIMATIONS
+        // =============================================
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Stagger animations for contact cards
+                    if (entry.target.classList.contains('slide-in')) {
+                        const delay = Array.from(entry.target.parentNode.children).indexOf(entry.target) * 100;
+                        setTimeout(() => {
+                            entry.target.style.transitionDelay = '0ms';
+                        }, delay);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // =============================================
+        // PHONE NUMBER FORMATTING
+        // =============================================
+        function formatPhoneNumber(input) {
+            const value = input.value.replace(/\D/g, '');
+            let formatted = value;
+            
+            if (value.length >= 10) {
+                if (value.startsWith('39')) {
+                    formatted = '+39 ' + value.slice(2, 5) + ' ' + value.slice(5, 8) + ' ' + value.slice(8, 12);
+                } else if (value.startsWith('3')) {
+                    formatted = '+39 ' + value.slice(0, 3) + ' ' + value.slice(3, 6) + ' ' + value.slice(6, 10);
+                }
+            }
+            
+            if (formatted !== input.value) {
+                input.value = formatted;
+            }
+        }
+
+        // =============================================
+        // ACCESSIBILITY ENHANCEMENTS
+        // =============================================
+        document.addEventListener('keydown', (e) => {
+            // Escape key closes mobile menu
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                hamburger.focus();
+            }
+            
+            // Enter key on contact cards triggers click
+            if (e.key === 'Enter' && e.target.closest('.contact-card')) {
+                const link = e.target.closest('.contact-card').querySelector('a');
+                if (link) link.click();
+            }
+        });
+
+        // Add keyboard navigation to contact cards
+        document.querySelectorAll('.contact-card').forEach(card => {
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('role', 'button');
+        });
+
+        // =============================================
+        // EMERGENCY CONTACT TRACKING
+        // =============================================
+        document.querySelectorAll('.btn-emergency').forEach(btn => {
+            btn.addEventListener('click', () => {
+                console.log('Emergency contact initiated');
+                
+                // Track emergency calls
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'emergency_contact', {
+                        event_category: 'Emergency',
+                        event_label: btn.textContent.trim(),
+                        value: 1
+                    });
+                }
+            });
+        });
+
+        // =============================================
+        // INIT
+        // =============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize animations
+            document.querySelectorAll('.fade-in, .slide-in').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // Initialize map
+            initMap();
+            
+            // Add character counter to textarea
+            if (textarea) {
+                addCharacterCounter();
+            }
+            
+            // Phone number formatting
+            const phoneInput = document.getElementById('telefono');
+            if (phoneInput) {
+                phoneInput.addEventListener('input', () => formatPhoneNumber(phoneInput));
+            }
+            
+            // Auto-focus first field on desktop
+            if (window.innerWidth >= 768) {
+                const firstInput = document.getElementById('nome');
+                if (firstInput) {
+                    setTimeout(() => firstInput.focus(), 1000);
+                }
+            }
+            
+            // Preload other pages
+            const preloadPages = ['calcolatore.html', 'index.html', 'servizi.html'];
+            preloadPages.forEach(page => {
+                const link = document.createElement('link');
+                link.rel = 'prefetch';
+                link.href = page;
+                document.head.appendChild(link);
+            });
+            
+            console.log('📞 Pagina Contatti T.E.C.H Building Future inizializzata');
+        });
+
+        // =============================================
+        // PERFORMANCE MONITORING
+        // =============================================
+        window.addEventListener('load', () => {
+            // Measure page load time
+            const loadTime = performance.now();
+            console.log(`Pagina caricata in ${Math.round(loadTime)}ms`);
+            
+            // Track page load
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'page_load_time', {
+                    event_category: 'Performance',
+                    value: Math.round(loadTime)
+                });
+            }
+        });
+
+        // =============================================
+        // SERVICE WORKER (PWA READY)
+        // =============================================
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => console.log('SW registered'))
+                    .catch(error => console.log('SW registration failed'));
+            });
+        }
+    </script>
+</body>
+</html>
